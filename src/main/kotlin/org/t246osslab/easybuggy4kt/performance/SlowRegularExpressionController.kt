@@ -1,16 +1,13 @@
 package org.t246osslab.easybuggy4kt.performance
 
-import java.util.Date
-import java.util.Locale
-import java.util.regex.Matcher
-import java.util.regex.Pattern
-
 import org.apache.commons.lang3.StringUtils
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.servlet.ModelAndView
 import org.t246osslab.easybuggy4kt.controller.AbstractController
+import java.util.*
+import java.util.regex.Pattern
 
 @Controller
 class SlowRegularExpressionController : AbstractController() {
