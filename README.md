@@ -2,6 +2,7 @@
 
 # EasyBuggy KoBootlin :four_leaf_clover:
 
+[TODO] Under constructing!
 This is a clone of EasyBuggy built on Spring Boot written in Kotlin. [EasyBuggy](https://github.com/k-tamura/easybuggy) is a broken web application in order to understand behavior of bugs and vulnerabilities, for example, [memory leak, deadlock, JVM crash, SQL injection and so on](https://github.com/k-tamura/easybuggy4kt/wiki).
 
 ![logo](https://github.com/k-tamura/easybuggy4kt/blob/master/src/main/webapp/images/easybuggy.png)
@@ -22,6 +23,3 @@ Access to
 
   Use <kbd>CTRL</kbd>+<kbd>C</kbd>
 
-    
-:clock4: For more detail
--
