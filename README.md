@@ -1,6 +1,6 @@
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
-# EasyBuggy Boot :four_leaf_clover:
+# EasyBuggy KoBootlin :four_leaf_clover:
 
 This is a clone of EasyBuggy built on Spring Boot written in Kotlin. [EasyBuggy](https://github.com/k-tamura/easybuggy) is a broken web application in order to understand behavior of bugs and vulnerabilities, for example, [memory leak, deadlock, JVM crash, SQL injection and so on](https://github.com/k-tamura/easybuggy4kt/wiki).
 
