@@ -1,0 +1,14 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" th:with="lang=${#locale.language}" th:lang="${lang}">
+<div th:replace="head"></div>
+<body style="margin-left: 20px; margin-right: 20px;">
+	<div th:replace="header"></div>
+	<form action="codeijc" method="post">
+		<p th:text="#{description.parse.json}" />
+		<label th:text="#{label.json.string}"></label><span>: </span>
+		<textarea name="jsonString" cols="80" rows="15" th:value="${jsonString}" ></textarea><br /><br /> 
+		<input type="submit" /><br /><br />
+        <div th:replace="messages"></div>
+	</form>
+</body>
+</html>

@@ -1,0 +1,20 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" th:with="lang=${#locale.language}" th:lang="${lang}">
+<div th:replace="head"></div>
+<body style="margin-left: 20px; margin-right: 20px;">
+    <div th:replace="header"></div>
+    <form action="mojibake" method="post">
+        <p th:text="#{description.capitalize.string}" /><br /> 
+        <label th:text="#{label.string}"></label><span>: </span>
+        <input type="text" name="string" size="100" maxlength="100" /><br /> <br />
+        <input type="submit" /><br /><br />
+        <div th:if="${msg != null}">
+            <th:block th:utext="${msg}" ></th:block><br /><br />
+        </div>
+        <div th:if="${note != null}"  class="alert alert-info" role="alert">
+            <span class="glyphicon glyphicon-info-sign"></span> 
+            <th:block th:utext="${note}"></th:block>
+        </div>
+    </form>
+</body>
+</html>
