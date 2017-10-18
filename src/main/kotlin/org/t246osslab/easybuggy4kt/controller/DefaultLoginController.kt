@@ -82,7 +82,7 @@ class DefaultLoginController : AbstractController() {
             session.setAttribute("authNMsg", "authenticated")
             session.setAttribute("userid", userid)
 
-            val target = session.getAttribute("target") as String
+            var target = session.getAttribute("target") as String
             if (target == null) {
                 res.sendRedirect("/admins/main")
             } else {
