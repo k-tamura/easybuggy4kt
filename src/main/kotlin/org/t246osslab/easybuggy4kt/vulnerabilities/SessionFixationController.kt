@@ -16,7 +16,7 @@ import org.t246osslab.easybuggy4kt.controller.DefaultLoginController
 class SessionFixationController : DefaultLoginController() {
 
     @RequestMapping(value = "/sessionfixation/login", method = arrayOf(RequestMethod.GET))
-    fun doGet(mav: ModelAndView, req: HttpServletRequest, res: HttpServletResponse, locale: Locale): ModelAndView {
+    override fun doGet(mav: ModelAndView, req: HttpServletRequest, res: HttpServletResponse, locale: Locale): ModelAndView {
         req.setAttribute("note", msg?.getMessage("msg.note.session.fixation", null, locale))
         super.doGet(mav, req, res, locale)
         return mav
@@ -24,7 +24,7 @@ class SessionFixationController : DefaultLoginController() {
 
     @RequestMapping(value = "/sessionfixation/login", method = arrayOf(RequestMethod.POST))
     @Throws(IOException::class)
-    fun doPost(mav: ModelAndView, req: HttpServletRequest, res: HttpServletResponse, locale: Locale): ModelAndView {
-        return super.doPost(mav, req, res, locale)
+    override fun doPost(mav: ModelAndView, req: HttpServletRequest, res: HttpServletResponse, locale: Locale): ModelAndView {
+        return super.doPost(mav, req, res, locale)!!
     }
 }

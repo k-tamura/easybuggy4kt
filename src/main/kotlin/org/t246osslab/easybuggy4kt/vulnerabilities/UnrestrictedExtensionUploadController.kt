@@ -80,10 +80,11 @@ class UnrestrictedExtensionUploadController : AbstractController() {
         try {
             FileOutputStream(savePath + File.separator + fileName).use { out ->
                 filePart.inputStream.use { `in` ->
-                    var read = 0
                     val bytes = ByteArray(1024)
-                    while ((read = `in`.read(bytes)) != -1) {
+                    var read = `in`.read(bytes)
+                    while (read != -1) {
                         out.write(bytes, 0, read)
+                        read = `in`.read(bytes)
                     }
                 }
             }

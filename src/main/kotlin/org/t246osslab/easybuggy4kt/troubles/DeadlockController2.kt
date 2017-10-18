@@ -83,11 +83,11 @@ class DeadlockController2 : AbstractController() {
             })
         } catch (e: DataAccessException) {
             mav.addObject("errmsg",
-                    msg?.getMessage("msg?.db.access.error.occur", arrayOf<String?>(e.message), null, locale))
+                    msg?.getMessage("msg.db.access.error.occur", arrayOf<String?>(e.message), null, locale))
             log.error("DataAccessException occurs: ", e)
         } catch (e: Exception) {
             mav.addObject("errmsg",
-                    msg?.getMessage("msg?.unknown.exception.occur", arrayOf<String?>(e.message), null, locale))
+                    msg?.getMessage("msg.unknown.exception.occur", arrayOf<String?>(e.message), null, locale))
             log.error("Exception occurs: ", e)
         }
 
@@ -107,20 +107,20 @@ class DeadlockController2 : AbstractController() {
                 Thread.sleep(500)
             }
             txMgr!!.commit(trnStatus)
-            mav.addObject("msg", msg?.getMessage("msg?.update.records", arrayOf<Any>(executeUpdate), null, locale))
+            mav.addObject("msg", msg?.getMessage("msg.update.records", arrayOf<Any>(executeUpdate), null, locale))
         } catch (e: DeadlockLoserDataAccessException) {
             txMgr!!.rollback(trnStatus)
-            mav.addObject("errmsg", msg?.getMessage("msg?.deadlock.occurs", null, locale))
+            mav.addObject("errmsg", msg?.getMessage("msg.deadlock.occurs", null, locale))
             log.error("DeadlockLoserDataAccessException occurs: ", e)
         } catch (e: DataAccessException) {
             txMgr!!.rollback(trnStatus)
             mav.addObject("errmsg",
-                    msg?.getMessage("msg?.db.access.error.occur", arrayOf<String?>(e.message), null, locale))
+                    msg?.getMessage("msg.db.access.error.occur", arrayOf<String?>(e.message), null, locale))
             log.error("DataAccessException occurs: ", e)
         } catch (e: Exception) {
             txMgr!!.rollback(trnStatus)
             mav.addObject("errmsg",
-                    msg?.getMessage("msg?.unknown.exception.occur", arrayOf<String?>(e.message), null, locale))
+                    msg?.getMessage("msg.unknown.exception.occur", arrayOf<String?>(e.message), null, locale))
             log.error("Exception occurs: ", e)
         }
 

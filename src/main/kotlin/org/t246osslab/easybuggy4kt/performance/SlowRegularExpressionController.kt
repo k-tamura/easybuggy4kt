@@ -13,12 +13,12 @@ import java.util.regex.Pattern
 class SlowRegularExpressionController : AbstractController() {
 
     @RequestMapping(value = "/slowre")
-    fun process(@RequestParam(value = "word", required = false) word: String, mav: ModelAndView,
+    fun process(@RequestParam(value = "word", required = false) word: String?, mav: ModelAndView,
                 locale: Locale): ModelAndView {
         var message: String? = null
         setViewAndCommonObjects(mav, locale, "slowregex")
         if (!StringUtils.isBlank(word)) {
-            if (isMatched(word)) {
+            if (isMatched(word!!)) {
                 message = msg?.getMessage("msg.match.regular.expression", null, locale)
             } else {
                 message = msg?.getMessage("msg.not.match.regular.expression", null, locale)

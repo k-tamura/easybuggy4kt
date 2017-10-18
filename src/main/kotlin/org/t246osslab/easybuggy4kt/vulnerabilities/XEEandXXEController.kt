@@ -141,10 +141,11 @@ class XEEandXXEController : AbstractController() {
         try {
             FileOutputStream(savePath + File.separator + fileName).use { out ->
                 filePart.inputStream.use { `in` ->
-                    var read = 0
                     val bytes = ByteArray(1024)
-                    while ((read = `in`.read(bytes)) != -1) {
+                    var read = `in`.read(bytes)
+                    while (read != -1) {
                         out.write(bytes, 0, read)
+                        read = `in`.read(bytes)
                     }
                 }
             }
@@ -173,11 +174,11 @@ class XEEandXXEController : AbstractController() {
                 val executeResult = upsertUser(attributes, locale)
                 val user = User()
                 if (executeResult == null) {
-                    user.setUserId(attributes!!.getValue("uid"))
-                    user.setName(attributes.getValue("name"))
-                    user.setPassword(attributes.getValue("password"))
-                    user.setPhone(attributes.getValue("phone"))
-                    user.setMail(attributes.getValue("mail"))
+                    user.userId = attributes!!.getValue("uid")
+                    user.name = attributes.getValue("name")
+                    user.password = attributes.getValue("password")
+                    user.phone = attributes.getValue("phone")
+                    user.mail = attributes.getValue("mail")
                     result.add(user)
                 } else {
                     result.add(attributes!!.getValue("uid") + " :: " + executeResult)
@@ -227,10 +228,10 @@ class XEEandXXEController : AbstractController() {
                     }
                 }
             } catch (e: DataAccessException) {
-                resultMessage = msg?.getMessage("msg.db.access.error.occur", arrayOf<String>(e.message), locale)
+                resultMessage = msg?.getMessage("msg.db.access.error.occur", arrayOf<String?>(e.message), locale)
                 log.error("DataAccessException occurs: ", e)
             } catch (e: Exception) {
-                resultMessage = msg?.getMessage("msg.unknown.exception.occur", arrayOf<String>(e.message), locale)
+                resultMessage = msg?.getMessage("msg.unknown.exception.occur", arrayOf<String?>(e.message), locale)
                 log.error("Exception occurs: ", e)
             }
 

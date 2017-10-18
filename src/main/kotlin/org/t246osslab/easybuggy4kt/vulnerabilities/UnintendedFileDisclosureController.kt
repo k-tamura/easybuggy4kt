@@ -18,7 +18,7 @@ class UnintendedFileDisclosureController : AbstractController() {
     }
 
     @RequestMapping(value = "/serverinfo")
-    fun process(@RequestParam(value = "string", required = false) string: String, mav: ModelAndView,
+    fun process(@RequestParam(value = "string", required = false) string: String?, mav: ModelAndView,
                 locale: Locale): ModelAndView {
         setViewAndCommonObjects(mav, locale, "serverinfo")
         mav.addObject("properties", System.getProperties())

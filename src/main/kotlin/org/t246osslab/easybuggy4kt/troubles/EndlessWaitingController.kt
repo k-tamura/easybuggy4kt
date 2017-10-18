@@ -23,7 +23,7 @@ class EndlessWaitingController : AbstractController() {
 
     @RequestMapping(value = "/endlesswaiting")
     @Throws(IOException::class)
-    fun process(@RequestParam(value = "count", required = false) strCount: String,
+    fun process(@RequestParam(value = "count", required = false) strCount: String?,
                 req: HttpServletRequest, mav: ModelAndView, locale: Locale): ModelAndView {
         setViewAndCommonObjects(mav, locale, "endlesswaiting")
         val count = NumberUtils.toInt(strCount, 0)
@@ -33,7 +33,7 @@ class EndlessWaitingController : AbstractController() {
                     req.servletContext.getAttribute("javax.servlet.context.tempdir").toString())
 
             if (batFile == null) {
-                mav.addObject("errmsg", msg?.getMessage("msg?.cant.create.batch", null, locale))
+                mav.addObject("errmsg", msg?.getMessage("msg.cant.create.batch", null, locale))
             } else {
                 try {
                     /* execte the batch */
@@ -41,18 +41,18 @@ class EndlessWaitingController : AbstractController() {
                     val process = pb.start()
                     process.waitFor()
                     mav.addObject("msg",
-                            msg?.getMessage("msg?.executed.batch", null, locale) + batFile.absolutePath)
+                            msg?.getMessage("msg.executed.batch", null, locale) + batFile.absolutePath)
                     mav.addObject("result",
                             printInputStream(process.inputStream) + printInputStream(process.errorStream))
                 } catch (e: InterruptedException) {
                     log.error("InterruptedException occurs: ", e)
                     mav.addObject("errmsg",
-                            msg?.getMessage("msg?.unknown.exception.occur", arrayOf<String?>(e.message), null, locale))
+                            msg?.getMessage("msg.unknown.exception.occur", arrayOf<String?>(e.message), null, locale))
                 }
 
             }
         } else {
-            mav.addObject("msg", msg?.getMessage("msg?.enter.positive.number", null, locale))
+            mav.addObject("msg", msg?.getMessage("msg.enter.positive.number", null, locale))
         }
         return mav
     }

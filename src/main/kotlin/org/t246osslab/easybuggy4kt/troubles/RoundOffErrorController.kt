@@ -13,7 +13,7 @@ import org.t246osslab.easybuggy4kt.controller.AbstractController
 class RoundOffErrorController : AbstractController() {
 
     @RequestMapping(value = "/roe")
-    fun process(@RequestParam(value = "number", required = false) strNumber: String, mav: ModelAndView,
+    fun process(@RequestParam(value = "number", required = false) strNumber: String?, mav: ModelAndView,
                 locale: Locale): ModelAndView {
         setViewAndCommonObjects(mav, locale, "roundofferror")
         val number = NumberUtils.toDouble(strNumber, -1.0)

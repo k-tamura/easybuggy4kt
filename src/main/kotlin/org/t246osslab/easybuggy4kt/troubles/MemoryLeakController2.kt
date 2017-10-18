@@ -27,7 +27,7 @@ class MemoryLeakController2 : AbstractController() {
             msg?.getMessage("label.permgen.space", null, locale)
         else
             msg?.getMessage("label.metaspace", null, locale)
-        mav.addObject("note", msg?.getMessage("msg?.permgen.space.leak.occur", arrayOf<String?>(permName), locale))
+        mav.addObject("note", msg?.getMessage("msg.permgen.space.leak.occur", arrayOf<String?>(permName), locale))
         try {
             toDoRemove()
 
@@ -43,7 +43,7 @@ class MemoryLeakController2 : AbstractController() {
         } catch (e: Exception) {
             log.error("Exception occurs: ", e)
             mav.addObject("errmsg",
-                    msg?.getMessage("msg?.unknown.exception.occur", arrayOf<String?>(e.message), null, locale))
+                    msg?.getMessage("msg.unknown.exception.occur", arrayOf<String?>(e.message), null, locale))
 
         }
 

@@ -13,7 +13,7 @@ import org.t246osslab.easybuggy4kt.controller.AbstractController
 class XSSController : AbstractController() {
 
     @RequestMapping(value = "/xss")
-    fun process(@RequestParam(value = "string", required = false) string: String, mav: ModelAndView,
+    fun process(@RequestParam(value = "string", required = false) string: String?, mav: ModelAndView,
                 locale: Locale): ModelAndView {
         mav.viewName = "xss"
         mav.addObject("title", msg?.getMessage("title.xss.page", null, locale))

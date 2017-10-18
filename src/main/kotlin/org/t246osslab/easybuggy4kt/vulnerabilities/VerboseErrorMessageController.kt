@@ -22,7 +22,7 @@ import org.t246osslab.easybuggy4kt.core.model.User
 class VerboseErrorMessageController : DefaultLoginController() {
 
     @RequestMapping(value = "/verbosemsg/login", method = arrayOf(RequestMethod.GET))
-    fun doGet(mav: ModelAndView, req: HttpServletRequest, res: HttpServletResponse, locale: Locale): ModelAndView {
+    override fun doGet(mav: ModelAndView, req: HttpServletRequest, res: HttpServletResponse, locale: Locale): ModelAndView {
         req.setAttribute("note", msg?.getMessage("msg.note.verbose.errror.message", null, locale))
         super.doGet(mav, req, res, locale)
         return mav
@@ -30,7 +30,7 @@ class VerboseErrorMessageController : DefaultLoginController() {
 
     @RequestMapping(value = "/verbosemsg/login", method = arrayOf(RequestMethod.POST))
     @Throws(IOException::class)
-    fun doPost(mav: ModelAndView, req: HttpServletRequest, res: HttpServletResponse, locale: Locale): ModelAndView? {
+    override fun doPost(mav: ModelAndView, req: HttpServletRequest, res: HttpServletResponse, locale: Locale): ModelAndView? {
 
         val userid = req.getParameter("userid")
         val password = req.getParameter("password")
@@ -50,14 +50,14 @@ class VerboseErrorMessageController : DefaultLoginController() {
             var admin = userLoginHistory.get(userid)
             if (admin == null) {
                 val newAdmin = User()
-                newAdmin.setUserId(userid)
+                newAdmin.userId = userid
                 admin = userLoginHistory.putIfAbsent(userid, newAdmin)
                 if (admin == null) {
                     admin = newAdmin
                 }
             }
-            admin!!.setLoginFailedCount(0)
-            admin!!.setLastLoginFailedTime(null)
+            admin!!.loginFailedCount = 0
+            admin!!.lastLoginFailedTime = null
 
             session.setAttribute("authNMsg", "authenticated")
             session.setAttribute("userid", userid)
@@ -75,14 +75,14 @@ class VerboseErrorMessageController : DefaultLoginController() {
                 var admin = userLoginHistory.get(userid)
                 if (admin == null) {
                     val newAdmin = User()
-                    newAdmin.setUserId(userid)
+                    newAdmin.userId = userid
                     admin = userLoginHistory.putIfAbsent(userid, newAdmin)
                     if (admin == null) {
                         admin = newAdmin
                     }
                 }
-                admin!!.setLoginFailedCount(admin!!.getLoginFailedCount() + 1)
-                admin!!.setLastLoginFailedTime(Date())
+                admin!!.loginFailedCount = admin!!.loginFailedCount + 1
+                admin!!.lastLoginFailedTime = Date()
             }
 
             session.setAttribute("authNMsg", "msg.password.not.match")
@@ -94,7 +94,7 @@ class VerboseErrorMessageController : DefaultLoginController() {
     private fun isExistUser(username: String?): Boolean {
         try {
             val query = LdapQueryBuilder.query().where("uid").`is`(username)
-            val user = ldapTemplate.findOne(query, User::class.java)
+            val user = ldapTemplate?.findOne(query, User::class.java)
             if (user != null) {
                 return true
             }

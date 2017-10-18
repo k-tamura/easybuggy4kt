@@ -14,11 +14,11 @@ import javax.script.ScriptException
 class CodeInjectionController : AbstractController() {
 
     @RequestMapping(value = "/codeijc")
-    fun process(@RequestParam(value = "jsonString", required = false) jsonString: String,
+    fun process(@RequestParam(value = "jsonString", required = false) jsonString: String?,
                 mav: ModelAndView, locale: Locale): ModelAndView {
         setViewAndCommonObjects(mav, locale, "codeinjection")
         if (!StringUtils.isBlank(jsonString)) {
-            parseJson(jsonString, mav, locale)
+            parseJson(jsonString!!, mav, locale)
         } else {
             mav.addObject("msg", msg?.getMessage("msg.enter.json.string", null, locale))
         }

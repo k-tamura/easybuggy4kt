@@ -13,7 +13,7 @@ import org.t246osslab.easybuggy4kt.controller.AbstractController
 class CreatingUnnecessaryObjectsController : AbstractController() {
 
     @RequestMapping(value = "/createobjects")
-    fun process(@RequestParam(value = "number", required = false) strNumber: String, mav: ModelAndView,
+    fun process(@RequestParam(value = "number", required = false) strNumber: String?, mav: ModelAndView,
                 locale: Locale): ModelAndView {
         val number = NumberUtils.toInt(strNumber, -1)
         val message = StringBuilder()

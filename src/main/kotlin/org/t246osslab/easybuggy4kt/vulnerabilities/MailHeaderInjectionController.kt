@@ -124,11 +124,11 @@ class MailHeaderInjectionController : AbstractController() {
 
                 try {
                     FileOutputStream(saveFile).use { outputStream ->
-                        part.inputStream.use { inputStream ->
-                            bytesRead = inputStream.read(buffer)
+                        part.inputStream.use {
+                            bytesRead = it.read(buffer)
                             // saves uploaded file
                             while (bytesRead != -1) {
-                                bytesRead = inputStream.read(buffer)
+                                bytesRead = it.read(buffer)
                                 outputStream.write(buffer, 0, bytesRead)
                             }
                         }

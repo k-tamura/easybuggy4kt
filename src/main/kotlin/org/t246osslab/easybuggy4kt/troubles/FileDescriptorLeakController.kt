@@ -22,7 +22,7 @@ class FileDescriptorLeakController : AbstractController() {
     private var count: Long = 0
 
     @RequestMapping(value = "/filedescriptorleak")
-    fun process(@RequestParam(value = "pingurl", required = false) pingURL: String,
+    fun process(@RequestParam(value = "pingurl", required = false) pingURL: String?,
                 req: HttpServletRequest, mav: ModelAndView, locale: Locale): ModelAndView {
 
         setViewAndCommonObjects(mav, locale, "filedescriptorleak")

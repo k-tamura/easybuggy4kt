@@ -13,7 +13,7 @@ import org.t246osslab.easybuggy4kt.controller.AbstractController
 class LossOfTrailingDigitsController : AbstractController() {
 
     @RequestMapping(value = "/lotd")
-    fun process(@RequestParam(value = "number", required = false) strNumber: String, mav: ModelAndView,
+    fun process(@RequestParam(value = "number", required = false) strNumber: String?, mav: ModelAndView,
                 locale: Locale): ModelAndView {
         setViewAndCommonObjects(mav, locale, "lossoftrailingdigits")
         val number = NumberUtils.toDouble(strNumber, -1.0)

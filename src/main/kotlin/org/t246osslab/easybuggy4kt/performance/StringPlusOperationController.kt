@@ -16,8 +16,8 @@ import org.t246osslab.easybuggy4kt.controller.AbstractController
 class StringPlusOperationController : AbstractController() {
 
     @RequestMapping(value = "/strplusopr")
-    fun process(@RequestParam(value = "length", required = false) strLength: String,
-                @RequestParam(value = "characters", required = false) characters: Array<String>, mav: ModelAndView,
+    fun process(@RequestParam(value = "length", required = false) strLength: String?,
+                @RequestParam(value = "characters", required = false) characters: Array<String>?, mav: ModelAndView,
                 locale: Locale): ModelAndView {
         setViewAndCommonObjects(mav, locale, "strplusopr")
         try {
