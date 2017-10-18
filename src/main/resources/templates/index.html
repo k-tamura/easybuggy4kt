@@ -88,9 +88,9 @@
 	<p th:text="#{description.errors}"></p>
 	<ul>
 		<li><p><a href="asserr" target="_blank">AssertionError</a>: <span th:text="#{function.description.throwable(${'AssertionError'})}"></span></p></li>
-		<li><p><a href="eie" target="_blank">ExceptionInInitializerError / NoClassDefFoundError</a>: <span th:text="#{function.description.ei.error}"></span></p></li>
+		<!-- TODO <li><p><a href="eie" target="_blank">ExceptionInInitializerError / NoClassDefFoundError</a>: <span th:text="#{function.description.ei.error}"></span></p></li> -->
 		<li><p><a href="fce" target="_blank">FactoryConfigurationError</a>: <span th:text="#{function.description.throwable(${'FactoryConfigurationError'})}"></span></p></li>
-		<li><p><a href="gsfe" target="_blank">GenericSignatureFormatError</a>: <span th:text="#{function.description.throwable(${'GenericSignatureFormatError'})}"></span></p></li>
+		<!-- TODO <li><p><a href="gsfe" target="_blank">GenericSignatureFormatError</a>: <span th:text="#{function.description.throwable(${'GenericSignatureFormatError'})}"></span></p></li> -->
 		<li><p><a href="oome" target="_blank">OutOfMemoryError (Java heap space)</a>: <span th:text="#{function.description.throwable(${'OutOfMemoryError'})}"></span></p></li>
 		<li><p><a href="oome2" target="_blank">OutOfMemoryError (Requested array size exceeds VM limit)</a>: <span th:text="#{function.description.throwable(${'OutOfMemoryError'})}"></span></p></li>
 		<li><p><a href="oome3" target="_blank">OutOfMemoryError (unable to create new native thread)</a>: <span th:text="#{function.description.throwable(${'OutOfMemoryError'})}"></span></p></li>
@@ -119,7 +119,7 @@
 		<li><p><a href="cme" target="_blank">ConcurrentModificationException </a>: <span th:text="#{function.description.throwable(${'ConcurrentModificationException'})}"></span></p></li>
 		<li><p><a href="ese" target="_blank">EmptyStackException </a>: <span th:text="#{function.description.throwable(${'EmptyStackException'})}"></span></p></li>
 		<li><p><a href="iae" target="_blank">IllegalArgumentException </a>: <span th:text="#{function.description.throwable(${'IllegalArgumentException'})}"></span></p></li>
-		<li><p><a href="imse" target="_blank">IllegalMonitorStateException </a>: <span th:text="#{function.description.throwable(${'IllegalMonitorStateException'})}"></span></p></li>
+		<!-- TODO <li><p><a href="imse" target="_blank">IllegalMonitorStateException </a>: <span th:text="#{function.description.throwable(${'IllegalMonitorStateException'})}"></span></p></li> -->
 		<li><p><a href="ipse" target="_blank">IllegalPathStateException </a>: <span th:text="#{function.description.throwable(${'IllegalPathStateException'})}"></span></p></li>
 		<li><p><a href="iase" target="_blank">IllegalStateException </a>: <span th:text="#{function.description.throwable(${'IllegalStateException'})}"></span></p></li>
 		<li><p><a href="itse" target="_blank">IllegalThreadStateException </a>: <span th:text="#{function.description.throwable(${'IllegalThreadStateException'})}"></span></p></li>
