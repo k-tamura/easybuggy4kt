@@ -1,11 +1,10 @@
 package org.t246osslab.easybuggy4kt.exceptions
 
+import org.springframework.stereotype.Controller
+import org.springframework.web.bind.annotation.RequestMapping
 import java.awt.geom.AffineTransform
 import java.awt.image.AffineTransformOp
 import java.awt.image.BufferedImage
-
-import org.springframework.stereotype.Controller
-import org.springframework.web.bind.annotation.RequestMapping
 
 @Controller
 class ImagingOpExceptionController {

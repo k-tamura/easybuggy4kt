@@ -1,12 +1,5 @@
 package org.t246osslab.easybuggy4kt.troubles
 
-import java.sql.Connection
-import java.sql.ResultSet
-import java.sql.SQLException
-import java.sql.Statement
-import java.util.ArrayList
-import java.util.Locale
-
 import org.apache.commons.lang3.StringUtils
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
@@ -16,6 +9,11 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.servlet.ModelAndView
 import org.t246osslab.easybuggy4kt.controller.AbstractController
 import org.t246osslab.easybuggy4kt.core.model.User
+import java.sql.Connection
+import java.sql.ResultSet
+import java.sql.SQLException
+import java.sql.Statement
+import java.util.*
 
 @Controller
 class DBConnectionLeakController : AbstractController() {

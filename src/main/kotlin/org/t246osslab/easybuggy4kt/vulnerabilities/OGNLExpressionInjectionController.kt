@@ -1,7 +1,8 @@
 package org.t246osslab.easybuggy4kt.vulnerabilities
 
-import java.util.Locale
-
+import ognl.Ognl
+import ognl.OgnlContext
+import ognl.OgnlException
 import org.apache.commons.lang.StringUtils
 import org.apache.commons.lang.math.NumberUtils
 import org.springframework.stereotype.Controller
@@ -9,10 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.servlet.ModelAndView
 import org.t246osslab.easybuggy4kt.controller.AbstractController
-
-import ognl.Ognl
-import ognl.OgnlContext
-import ognl.OgnlException
+import java.util.*
 
 @Controller
 class OGNLExpressionInjectionController : AbstractController() {

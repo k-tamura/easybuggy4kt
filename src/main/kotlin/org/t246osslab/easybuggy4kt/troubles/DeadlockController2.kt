@@ -1,13 +1,5 @@
 package org.t246osslab.easybuggy4kt.troubles
 
-import java.sql.ResultSet
-import java.sql.SQLException
-import java.util.ArrayList
-import java.util.Locale
-
-import javax.servlet.http.HttpServletRequest
-import javax.servlet.http.HttpSession
-
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.dao.DataAccessException
 import org.springframework.dao.DeadlockLoserDataAccessException
@@ -15,12 +7,14 @@ import org.springframework.jdbc.core.JdbcTemplate
 import org.springframework.jdbc.core.RowMapper
 import org.springframework.stereotype.Controller
 import org.springframework.transaction.PlatformTransactionManager
-import org.springframework.transaction.TransactionStatus
 import org.springframework.transaction.support.DefaultTransactionDefinition
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.servlet.ModelAndView
 import org.t246osslab.easybuggy4kt.controller.AbstractController
 import org.t246osslab.easybuggy4kt.core.model.User
+import java.util.*
+import javax.servlet.http.HttpServletRequest
+import javax.servlet.http.HttpSession
 
 @Controller
 class DeadlockController2 : AbstractController() {

@@ -1,10 +1,8 @@
 package org.t246osslab.easybuggy4kt.errors
 
-import java.util.Properties
-import java.util.Random
-
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.RequestMapping
+import java.util.*
 
 @Controller
 class OutOfMemoryErrorController4 {

@@ -1,10 +1,9 @@
 package org.t246osslab.easybuggy4kt.errors
 
-import java.nio.ByteBuffer
-
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.servlet.ModelAndView
+import java.nio.ByteBuffer
 
 @Controller
 class OutOfMemoryErrorController6 {

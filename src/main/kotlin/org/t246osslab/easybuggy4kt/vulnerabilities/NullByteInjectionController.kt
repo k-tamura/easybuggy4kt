@@ -1,21 +1,16 @@
 package org.t246osslab.easybuggy4kt.vulnerabilities
 
-import java.io.IOException
-import java.io.InputStream
-import java.util.Locale
-
-import javax.servlet.ServletOutputStream
-import javax.servlet.http.HttpServletRequest
-import javax.servlet.http.HttpServletResponse
-
 import org.apache.commons.lang3.StringUtils
 import org.springframework.core.io.ClassPathResource
-import org.springframework.core.io.Resource
 import org.springframework.stereotype.Controller
 import org.springframework.util.FileCopyUtils
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.servlet.ModelAndView
 import org.t246osslab.easybuggy4kt.controller.AbstractController
+import java.io.IOException
+import java.util.*
+import javax.servlet.http.HttpServletRequest
+import javax.servlet.http.HttpServletResponse
 
 @Controller
 class NullByteInjectionController : AbstractController() {

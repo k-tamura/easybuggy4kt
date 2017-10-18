@@ -1,13 +1,11 @@
 package org.t246osslab.easybuggy4kt.core.model
 
-import java.io.Serializable
-import java.util.Date
-
-import javax.naming.Name
-
 import org.springframework.ldap.odm.annotations.Attribute
 import org.springframework.ldap.odm.annotations.Entry
 import org.springframework.ldap.odm.annotations.Id
+import java.io.Serializable
+import java.util.*
+import javax.naming.Name
 
 @Entry(objectClasses = arrayOf("person", "inetOrgPerson"))
 class User : Serializable {

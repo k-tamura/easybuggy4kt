@@ -1,20 +1,5 @@
 package org.t246osslab.easybuggy4kt.vulnerabilities
 
-import java.awt.image.BufferedImage
-import java.awt.image.WritableRaster
-import java.io.File
-import java.io.FileNotFoundException
-import java.io.FileOutputStream
-import java.io.IOException
-import java.io.InputStream
-import java.io.OutputStream
-import java.util.Arrays
-import java.util.Locale
-
-import javax.imageio.ImageIO
-import javax.servlet.http.HttpServletRequest
-import javax.servlet.http.HttpServletResponse
-
 import org.apache.commons.io.FilenameUtils
 import org.apache.commons.lang.StringUtils
 import org.springframework.stereotype.Controller
@@ -24,6 +9,14 @@ import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.multipart.MultipartFile
 import org.springframework.web.servlet.ModelAndView
 import org.t246osslab.easybuggy4kt.controller.AbstractController
+import java.io.File
+import java.io.FileNotFoundException
+import java.io.FileOutputStream
+import java.io.IOException
+import java.util.*
+import javax.imageio.ImageIO
+import javax.servlet.http.HttpServletRequest
+import javax.servlet.http.HttpServletResponse
 
 @Controller
 class UnrestrictedSizeUploadController : AbstractController() {

@@ -1,10 +1,9 @@
 package org.t246osslab.easybuggy4kt.errors
 
-import java.net.NetworkInterface
-import java.net.SocketException
-
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.RequestMapping
+import java.net.NetworkInterface
+import java.net.SocketException
 
 @Controller
 class UnsatisfiedLinkErrorController {

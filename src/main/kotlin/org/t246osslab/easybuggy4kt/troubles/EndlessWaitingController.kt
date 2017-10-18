@@ -1,22 +1,14 @@
 package org.t246osslab.easybuggy4kt.troubles
 
-import java.io.BufferedReader
-import java.io.BufferedWriter
-import java.io.File
-import java.io.FileWriter
-import java.io.IOException
-import java.io.InputStream
-import java.io.InputStreamReader
-import java.util.Locale
-
-import javax.servlet.http.HttpServletRequest
-
 import org.apache.commons.lang.math.NumberUtils
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.servlet.ModelAndView
 import org.t246osslab.easybuggy4kt.controller.AbstractController
+import java.io.*
+import java.util.*
+import javax.servlet.http.HttpServletRequest
 
 @Controller
 class EndlessWaitingController : AbstractController() {

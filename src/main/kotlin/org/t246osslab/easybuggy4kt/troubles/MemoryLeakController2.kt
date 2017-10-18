@@ -1,18 +1,15 @@
 package org.t246osslab.easybuggy4kt.troubles
 
-import java.lang.management.ManagementFactory
-import java.lang.management.MemoryPoolMXBean
-import java.lang.management.MemoryType
-import java.util.ArrayList
-import java.util.Locale
-
+import javassist.CannotCompileException
+import javassist.ClassPool
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.servlet.ModelAndView
 import org.t246osslab.easybuggy4kt.controller.AbstractController
-
-import javassist.CannotCompileException
-import javassist.ClassPool
+import java.lang.management.ManagementFactory
+import java.lang.management.MemoryPoolMXBean
+import java.lang.management.MemoryType
+import java.util.*
 
 @Controller
 class MemoryLeakController2 : AbstractController() {
