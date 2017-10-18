@@ -42,14 +42,14 @@ class FileDescriptorLeakController : AbstractController() {
             val history = ArrayList<Array<String>>()
             val br = BufferedReader(FileReader(file))
             val headerLength = 0
-            var line: String = br.readLine()
+            var line: String? = br.readLine()
             var currentLineNum: Long = 0
             while (line != null) {
-                line = br.readLine()
                 if (count - currentLineNum <= MAX_DISPLAY_COUNT) {
                     history.add(headerLength, line.split(",".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray())
                 }
                 currentLineNum++
+                line = br.readLine()
             }
             mav.addObject("history", history)
 
