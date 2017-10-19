@@ -2,11 +2,8 @@
 build/
 !gradle/wrapper/gradle-wrapper.jar
 
-derby.log
-.idea/
 logs/
 work/
-.gradle/
 uploadFiles/
 
 ### STS ###
@@ -57,9 +54,7 @@ tmp/
 *.swp
 *~.nib
 local.properties
-.settings/
 .loadpath
-.recommenders
 
 # Locally stored "Eclipse launch configurations"
 *.launch
