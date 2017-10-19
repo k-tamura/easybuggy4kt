@@ -4,7 +4,7 @@
 EasyBuggy Bootlin :bug:
 =
 
-EasyBuggy Bootlinは、Spring Bootで開発されたEasyBuggyのクローンです。[EasyBuggy](https://github.com/k-tamura/easybuggy)は、[メモリリーク、デッドロック、JVMクラッシュ、SQLインジェクションなど](https://github.com/k-tamura/easybuggy4kt/wiki)、バグや脆弱性の動作を理解するためにつくられたバグだらけのWebアプリケーションです。
+EasyBuggy Bootlinは、Kotlinで開発されたSpring BootベースのEasyBuggyのクローンです。[EasyBuggy](https://github.com/k-tamura/easybuggy)は、[メモリリーク、デッドロック、JVMクラッシュ、SQLインジェクションなど](https://github.com/k-tamura/easybuggy4kt/wiki)、バグや脆弱性の動作を理解するためにつくられたバグだらけのWebアプリケーションです。
 
 ![logo](https://github.com/k-tamura/easybuggy4kt/blob/master/src/main/webapp/images/easybuggy.png)
 ![vuls](https://github.com/k-tamura/test/blob/master/bugs.png)
