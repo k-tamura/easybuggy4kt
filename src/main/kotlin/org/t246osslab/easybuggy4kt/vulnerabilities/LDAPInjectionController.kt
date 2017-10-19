@@ -38,7 +38,7 @@ class LDAPInjectionController : DefaultLoginController() {
         }
         try {
             val query = LdapQueryBuilder.query()
-                    .filter("(&(uid=" + userId?.trim { it <= ' ' } + ")(userPassword=" + password?.trim { it <= ' ' } + "))")
+                    .filter("(&(uid=" + userId.trim { it <= ' ' } + ")(userPassword=" + password.trim { it <= ' ' } + "))")
             val users = ldapTemplate?.find(query, User::class.java)
             if (users!!.isEmpty()) {
                 return false

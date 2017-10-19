@@ -32,7 +32,7 @@ class BruteForceController : DefaultLoginController() {
             session.setAttribute("authNMsg", "authenticated")
             session.setAttribute("userid", userid)
 
-            val target = session.getAttribute("target") as String
+            val target = session.getAttribute("target") as String?
             if (target == null) {
                 res.sendRedirect("/admins/main")
             } else {

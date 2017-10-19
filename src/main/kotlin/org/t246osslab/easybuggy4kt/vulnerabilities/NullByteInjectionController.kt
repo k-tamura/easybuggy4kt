@@ -29,7 +29,7 @@ class NullByteInjectionController : AbstractController() {
         try {
             resource.inputStream.use { fis ->
                 res.outputStream.use { os ->
-                    val mimeType = req.servletContext.getMimeType(resource.uri.path)
+                    val mimeType = req.session.servletContext.getMimeType(resource.uri.path)
                     res.contentType = mimeType ?: "application/octet-stream"
                     res.setContentLength(resource.contentLength().toInt())
                     res.setHeader("Content-Disposition", "attachment; filename=\"" + fileName + "\"")

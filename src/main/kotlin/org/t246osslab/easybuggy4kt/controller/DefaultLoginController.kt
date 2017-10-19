@@ -14,7 +14,6 @@ import org.springframework.web.servlet.ModelAndView
 import org.t246osslab.easybuggy4kt.core.model.User
 import java.io.IOException
 import java.util.*
-import java.util.Map
 import java.util.concurrent.ConcurrentHashMap
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
@@ -71,7 +70,7 @@ class DefaultLoginController : AbstractController() {
             if (admin == null) {
                 val newAdmin = User()
                 newAdmin.userId = userid
-                admin = (userLoginHistory as Map<String, User>).putIfAbsent(userid, newAdmin)
+                admin = userLoginHistory.putIfAbsent(userid, newAdmin)
                 if (admin == null) {
                     admin = newAdmin
                 }
@@ -82,7 +81,7 @@ class DefaultLoginController : AbstractController() {
             session.setAttribute("authNMsg", "authenticated")
             session.setAttribute("userid", userid)
 
-            var target = session.getAttribute("target") as String
+            var target = session.getAttribute("target") as String?
             if (target == null) {
                 res.sendRedirect("/admins/main")
             } else {
@@ -92,11 +91,11 @@ class DefaultLoginController : AbstractController() {
         } else {
             /* account lock count +1 */
             if (userid != null) {
-                var admin: User? = userLoginHistory[userid!!]
+                var admin: User? = userLoginHistory[userid]
                 if (admin == null) {
                     val newAdmin = User()
                     newAdmin.userId = userid
-                    admin = (userLoginHistory as Map<String, User>).putIfAbsent(userid, newAdmin)
+                    admin = userLoginHistory.putIfAbsent(userid, newAdmin)
                     if (admin == null) {
                         admin = newAdmin
                     }
@@ -115,7 +114,7 @@ class DefaultLoginController : AbstractController() {
             return false
         }
         val admin = userLoginHistory[userid]
-        return admin != null && admin!!.loginFailedCount === accountLockCount
+        return admin != null && admin.loginFailedCount == accountLockCount
                 && Date().time - admin.lastLoginFailedTime!!.getTime() < accountLockTime
     }
 

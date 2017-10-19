@@ -49,8 +49,8 @@ class OpenRedirectController : DefaultLoginController() {
                     admin = newAdmin
                 }
             }
-            admin!!.loginFailedCount = 0
-            admin!!.lastLoginFailedTime = null
+            admin.loginFailedCount = 0
+            admin.lastLoginFailedTime = null
 
             session.setAttribute("authNMsg", "authenticated")
             session.setAttribute("userid", userid)
@@ -59,7 +59,7 @@ class OpenRedirectController : DefaultLoginController() {
             if (gotoUrl != null) {
                 res.sendRedirect(gotoUrl)
             } else {
-                val target = session.getAttribute("target") as String
+                val target = session.getAttribute("target") as String?
                 if (target == null) {
                     res.sendRedirect("/admins/main")
                 } else {
@@ -79,8 +79,8 @@ class OpenRedirectController : DefaultLoginController() {
                         admin = newAdmin
                     }
                 }
-                admin!!.loginFailedCount = admin!!.loginFailedCount + 1
-                admin!!.lastLoginFailedTime = Date()
+                admin.loginFailedCount = admin.loginFailedCount + 1
+                admin.lastLoginFailedTime = Date()
             }
 
             session.setAttribute("authNMsg", "msg.authentication.fail")

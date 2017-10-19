@@ -22,7 +22,7 @@ class EndlessWaitingController : AbstractController() {
         if (count > 0) {
             /* create a batch file in the temp directory */
             val batFile = createBatchFile(count,
-                    req.servletContext.getAttribute("javax.servlet.context.tempdir").toString())
+                    req.session.servletContext.getAttribute("javax.servlet.context.tempdir").toString())
 
             if (batFile == null) {
                 mav.addObject("errmsg", msg?.getMessage("msg.cant.create.batch", null, locale))
@@ -52,8 +52,8 @@ class EndlessWaitingController : AbstractController() {
     private fun createBatchFile(count: Int, tmpdir: String): File? {
 
         val osName = System.getProperty("os.name").toLowerCase()
-        var batFileName: String? = null
-        var firstLine: String? = null
+        var batFileName: String?
+        var firstLine: String?
         if (osName.toLowerCase().startsWith("windows")) {
             batFileName = "test.bat"
             firstLine = "@echo off"
@@ -62,7 +62,7 @@ class EndlessWaitingController : AbstractController() {
             firstLine = "#!/bin/sh"
         }
 
-        var batFile: File? = null
+        var batFile: File?
         try {
             batFile = File(tmpdir, batFileName)
         } catch (e: Exception) {

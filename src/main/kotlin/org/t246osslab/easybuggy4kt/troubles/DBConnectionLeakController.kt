@@ -53,9 +53,9 @@ class DBConnectionLeakController : AbstractController() {
     @Throws(SQLException::class)
     private fun selectUsers(): List<User> {
         val users = ArrayList<User>()
-        var conn: Connection? = null
-        var stmt: Statement? = null
-        var rs: ResultSet? = null
+        var conn: Connection?
+        var stmt: Statement?
+        var rs: ResultSet?
         conn = jdbcTemplate!!.dataSource.connection
         stmt = conn!!.createStatement()
         rs = stmt!!.executeQuery("select id, name, phone, mail from users where ispublic = 'true'")

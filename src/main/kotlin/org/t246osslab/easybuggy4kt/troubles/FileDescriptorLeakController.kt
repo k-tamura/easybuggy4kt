@@ -19,10 +19,10 @@ class FileDescriptorLeakController : AbstractController() {
 
         setViewAndCommonObjects(mav, locale, "filedescriptorleak")
         try {
-            val file = File(req.servletContext.getAttribute("javax.servlet.context.tempdir").toString(),
+            val file = File(req.session.servletContext.getAttribute("javax.servlet.context.tempdir").toString(),
                     "history.csv")
             val fos = FileOutputStream(file, true)
-            val osw = OutputStreamWriter(fos).apply {
+            OutputStreamWriter(fos).apply {
                 write(Date().toString() + ",")
                 write(req.remoteAddr + ",")
                 write(req.requestedSessionId)

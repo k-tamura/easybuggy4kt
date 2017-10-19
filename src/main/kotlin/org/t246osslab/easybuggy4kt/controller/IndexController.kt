@@ -14,8 +14,8 @@ class IndexController : AbstractController() {
         ses.removeAttribute("dlpinit")
         setViewAndCommonObjects(mav, locale, "index")
         mav.addObject("title", "EasyBuggy Boot")
-        var permName: String? = null
-        var lblPerm: String? = null
+        var permName: String?
+        var lblPerm: String?
         if (System.getProperty("java.version").startsWith("1.7")) {
             permName = "PermGen space"
             lblPerm = msg?.getMessage("label.permgen.space", null, locale)

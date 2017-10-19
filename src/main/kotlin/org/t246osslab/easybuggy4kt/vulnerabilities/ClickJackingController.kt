@@ -41,7 +41,7 @@ class ClickJackingController : AbstractController() {
             res.sendRedirect("/")
             return null
         }
-        val userid = session.getAttribute("userid") as String
+        val userid = session.getAttribute("userid") as String?
         if (userid == null) {
             res.sendRedirect("/")
             return null

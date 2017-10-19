@@ -34,7 +34,7 @@ class IntegerOverflowController : AbstractController() {
         if (times >= 0) {
             mav.addObject("times", strTimes)
             val description = StringBuilder()
-            description.append(thickness.toString()!! + " mm")
+            description.append(thickness.toString() + " mm")
             if (thicknessM != null && thicknessKm != null) {
                 description.append(
                         if (thicknessM.toInt() >= 1 && thicknessKm.toInt() < 1) " = $thicknessM m" else "")

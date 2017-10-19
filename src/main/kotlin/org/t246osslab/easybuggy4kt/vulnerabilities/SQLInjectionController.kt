@@ -51,7 +51,7 @@ class SQLInjectionController : AbstractController() {
     private fun selectUsers(name: String, password: String): List<User>? {
 
         return jdbcTemplate!!.query("SELECT name, secret FROM users WHERE ispublic = 'true' AND name='" + name
-                + "' AND password='" + password + "'", RowMapper<User> { rs, rowNum ->
+                + "' AND password='" + password + "'", RowMapper<User> { rs, _ ->
             val user = User()
             user.name = rs.getString("name")
             user.secret = rs.getString("secret")

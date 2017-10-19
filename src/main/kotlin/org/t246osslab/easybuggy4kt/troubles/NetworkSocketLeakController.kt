@@ -15,8 +15,8 @@ class NetworkSocketLeakController : AbstractController() {
     @RequestMapping(value = "/netsocketleak")
     fun process(mav: ModelAndView, req: HttpServletRequest, locale: Locale): ModelAndView {
         setViewAndCommonObjects(mav, locale, "netsocketleak")
-        var connection: HttpURLConnection? = null
-        var url: URL? = null
+        var connection: HttpURLConnection?
+        var url: URL?
         var pingURL: String? = req.getParameter("pingurl")
         try {
             if (pingURL == null) {

@@ -30,7 +30,7 @@ class DeadlockController2 : AbstractController() {
         setViewAndCommonObjects(mav, locale, "deadlock2")
         // Overwrite title (because title is the same as xee page)
         mav.addObject("title", msg?.getMessage("title.xee.page", null, locale))
-        var users: MutableList<User>? = null
+        var users: MutableList<User>?
         val order = getOrder(req)
         if ("POST" == req.method) {
             users = ArrayList<User>()
@@ -67,7 +67,7 @@ class DeadlockController2 : AbstractController() {
     private fun selectUsers(order: String, locale: Locale, mav: ModelAndView): MutableList<User>? {
         var users: MutableList<User>? = null
         try {
-            users = jdbcTemplate!!.query("select * from users where ispublic = 'true' order by id " + if ("desc" == order) "desc" else "asc", RowMapper<User> { rs, rowNum ->
+            users = jdbcTemplate!!.query("select * from users where ispublic = 'true' order by id " + if ("desc" == order) "desc" else "asc", RowMapper<User> { rs, _ ->
                 val user = User()
                 user.userId = rs.getString("id")
                 user.name = rs.getString("name")

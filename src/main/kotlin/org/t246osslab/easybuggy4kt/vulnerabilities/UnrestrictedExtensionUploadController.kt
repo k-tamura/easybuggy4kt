@@ -38,9 +38,8 @@ class UnrestrictedExtensionUploadController : AbstractController() {
         }
 
         setViewAndCommonObjects(mav, locale, "unrestrictedextupload")
-
         // Get absolute path of the web application
-        val appPath = req.servletContext.getRealPath("")
+        val appPath = req.session.servletContext.getRealPath("")
 
         // Create a directory to save the uploaded file if it does not exists
         val savePath = (appPath ?: System.getProperty("user.dir")) + File.separator + SAVE_DIR
