@@ -13,7 +13,7 @@ class IndexController : AbstractController() {
     fun init(ses: HttpSession, mav: ModelAndView, locale: Locale): ModelAndView {
         ses.removeAttribute("dlpinit")
         setViewAndCommonObjects(mav, locale, "index")
-        mav.addObject("title", "EasyBuggy Boot")
+        mav.addObject("title", "EasyBuggy Bootlin")
         var permName: String?
         var lblPerm: String?
         if (System.getProperty("java.version").startsWith("1.7")) {
