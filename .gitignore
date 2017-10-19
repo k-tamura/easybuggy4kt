@@ -1,5 +1,36 @@
-# Created by .ignore support plugin (hsz.mobi)
-### Kotlin template
+.gradle
+build/
+!gradle/wrapper/gradle-wrapper.jar
+
+derby.log
+.idea/
+logs/
+work/
+.gradle/
+uploadFiles/
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+nbproject/private/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+
+### Java/Kotlin template
 # Compiled class file
 *.class
 
@@ -14,25 +45,8 @@
 *.tar.gz
 *.rar
 
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
-### Java template
-# Compiled class file
-*.class
 
-# Log file
-*.log
-
-# Package Files #
-*.jar
-*.war
-*.ear
-*.zip
-*.tar.gz
-*.rar
-
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-hs_err_pid*
 ### Eclipse template
 
 .metadata
@@ -50,22 +64,5 @@ local.properties
 # Locally stored "Eclipse launch configurations"
 *.launch
 
-# STS (Spring Tool Suite)
-.springBeans
-
 # Code Recommenders
 .recommenders/
-
-.gitignore
-.gradle/
-.idea/gradle.xml
-.idea/inspectionProfiles/
-.idea/misc.xml
-.idea/modules.xml
-.idea/vcs.xml
-.idea/workspace.xml
-build/
-easybuggy4kt.iml
-logs/
-uploadFiles/
-work/
