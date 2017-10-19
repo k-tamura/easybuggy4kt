@@ -101,7 +101,7 @@ class XEEandXXEController : AbstractController() {
                 spf.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true)
             }
             parser = spf.newSAXParser()
-            parser.parse(File(savePath + File.separator + fileName).absolutePath, customHandler)
+            parser.parse(File(savePath + File.separator + fileName).toURI().toString(), customHandler)
             isRegistered = true
         } catch (e: ParserConfigurationException) {
             log.error("ParserConfigurationException occurs: ", e)

@@ -13,7 +13,7 @@ class ExceptionInInitializerErrorController {
     @RequestMapping(value = "/eie")
     fun process() {
         try {
-            val cl = Class.forName("org.t246osslab.easybuggy4sb.errors.InitializerErrorThrower")
+            val cl = Class.forName("org.t246osslab.easybuggy4kt.errors.InitializerErrorThrower")
             val cunstructor = cl.getConstructor()
             cunstructor.newInstance(*arrayOf<Any>())
         } catch (e: Exception) {

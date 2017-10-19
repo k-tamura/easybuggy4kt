@@ -22,7 +22,7 @@
 				<th th:text="#{label.mail}"></th>
 			</tr>
 			<tr th:each="result : ${resultList}">
-				<th:block th:if="${result instanceof T(org.t246osslab.easybuggy4sb.core.model.User)}">
+				<th:block th:if="${result instanceof T(org.t246osslab.easybuggy4kt.core.model.User)}">
 					<td th:text="${result.userId}" ></td>
 					<td th:text="${result.password}" ></td>
 					<td th:text="${result.name}" ></td>
