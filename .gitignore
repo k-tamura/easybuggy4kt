@@ -5,6 +5,7 @@ build/
 logs/
 work/
 uploadFiles/
+out/
 
 ### STS ###
 .apt_generated
@@ -61,3 +62,4 @@ local.properties
 
 # Code Recommenders
 .recommenders/
+
