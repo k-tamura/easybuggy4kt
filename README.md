@@ -1,6 +1,7 @@
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+[![GitHub release](https://img.shields.io/github/release/k-tamura/easybuggy4kt.svg)](https://github.com/k-tamura/easybuggy4kt/releases/latest)
 
-# EasyBuggy Bootlin :four_leaf_clover:
+# EasyBuggy Bootlin :bug:
 
 This is a clone of EasyBuggy **built on Spring Boot and written in Kotlin**. [EasyBuggy](https://github.com/k-tamura/easybuggy) is a broken web application in order to understand behavior of bugs and vulnerabilities, for example, [memory leak, deadlock, JVM crash, SQL injection and so on](https://github.com/k-tamura/easybuggy4kt/wiki).
 
@@ -12,7 +13,7 @@ This is a clone of EasyBuggy **built on Spring Boot and written in Kotlin**. [Ea
 
     $ gradle bootRun
 
-( or ``` java -jar easybuggy4kt.jar ``` with [the JVM options](https://github.com/k-tamura/easybuggy4kt/blob/master/pom.xml#L148). )
+( or ``` java -jar ROOT.war ``` with [the JVM options](https://github.com/k-tamura/easybuggy4kt/blob/master/build.gradle#L66). )
 
 Access to
 
@@ -21,4 +22,10 @@ Access to
 #### To stop:
 
   Use <kbd>CTRL</kbd>+<kbd>C</kbd>
+
+:clock4: For more detail
+-
+   
+See [the wiki page](https://github.com/k-tamura/easybuggy4kt/wiki).
+
 
