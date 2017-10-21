@@ -1,8 +1,5 @@
 package org.t246osslab.easybuggy4kt.errors
 
-import java.lang.reflect.Constructor
-
-import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.RequestMapping
@@ -15,7 +12,7 @@ class ExceptionInInitializerErrorController {
         try {
             val cl = Class.forName("org.t246osslab.easybuggy4kt.errors.InitializerErrorThrower")
             val cunstructor = cl.getConstructor()
-            cunstructor.newInstance(*arrayOf<Any>())
+            cunstructor.newInstance()
         } catch (e: Exception) {
             log.error("Exception occurs: ", e)
         }

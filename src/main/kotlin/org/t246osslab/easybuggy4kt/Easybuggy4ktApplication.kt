@@ -9,10 +9,10 @@ import org.springframework.boot.web.support.SpringBootServletInitializer
 import org.springframework.context.annotation.Bean
 
 @SpringBootApplication
-class Easybuggy4sbApplication : SpringBootServletInitializer() {
+class Easybuggy4ktApplication : SpringBootServletInitializer() {
 
     override fun configure(application: SpringApplicationBuilder): SpringApplicationBuilder {
-        return application.sources(Easybuggy4sbApplication::class.java)
+        return application.sources(Easybuggy4ktApplication::class.java)
     }
 
     @Bean
@@ -35,7 +35,7 @@ class Easybuggy4sbApplication : SpringBootServletInitializer() {
 
         @JvmStatic
         fun main(args: Array<String>) {
-            SpringApplication.run(arrayOf(Easybuggy4sbApplication::class.java, InitializationListener::class.java), args)
+            SpringApplication.run(arrayOf(Easybuggy4ktApplication::class.java, InitializationListener::class.java), args)
         }
     }
 }

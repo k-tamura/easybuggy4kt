@@ -8,6 +8,6 @@ class SecurityExceptionController {
 
     @RequestMapping(value = "/se")
     fun process() {
-        SecurityManager().checkPermission(RuntimePermission("exitVM"), null!!)
+        SecurityManager().checkPermission(RuntimePermission("exitVM"), null)
     }
 }

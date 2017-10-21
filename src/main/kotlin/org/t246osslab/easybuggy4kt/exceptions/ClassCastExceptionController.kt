@@ -10,6 +10,6 @@ class ClassCastExceptionController {
     @RequestMapping(value = "/cce")
     fun process(req: HttpServletRequest) {
         req.setAttribute("param1", "value1")
-        req.setAttribute("param2", req.getAttribute("param1") as Array<String>)
+        req.setAttribute("param2", req.getAttribute("param1") as Array<*>)
     }
 }

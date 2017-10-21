@@ -12,7 +12,7 @@ class OutOfMemoryErrorController5 {
         try {
             for (i in 0..999999) {
                 val pool = ClassPool.getDefault()
-                pool.makeClass("eu.plumbr.demo.Generated" + i).toClass()
+                pool.makeClass("org.t246osslab.easybuggy4kt.Generated" + i).toClass()
             }
         } catch (e: Exception) {
         }
