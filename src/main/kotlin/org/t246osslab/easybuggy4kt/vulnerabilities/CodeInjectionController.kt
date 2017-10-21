@@ -38,11 +38,11 @@ class CodeInjectionController : AbstractController() {
             mav.addObject("msg", msg?.getMessage("msg.valid.json", null, locale))
         } catch (e: ScriptException) {
             mav.addObject("errmsg", msg?.getMessage("msg.invalid.json",
-                    arrayOf<String?>(e.message), null, locale))
+                    arrayOf(e.message), null, locale))
         } catch (e: Exception) {
             log.error("Exception occurs: ", e)
             mav.addObject("errmsg", msg?.getMessage("msg.invalid.json",
-                    arrayOf<String?>(e.message), null, locale))
+                    arrayOf(e.message), null, locale))
         }
 
     }

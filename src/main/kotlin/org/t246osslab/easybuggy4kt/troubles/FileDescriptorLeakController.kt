@@ -48,7 +48,7 @@ class FileDescriptorLeakController : AbstractController() {
         } catch (e: Exception) {
             log.error("Exception occurs: ", e)
             mav.addObject("errmsg",
-                    msg?.getMessage("msg.unknown.exception.occur", arrayOf<String?>(e.message), null, locale))
+                    msg?.getMessage("msg.unknown.exception.occur", arrayOf(e.message), null, locale))
         }
 
         return mav

@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.dao.DataAccessException
 import org.springframework.dao.DeadlockLoserDataAccessException
 import org.springframework.jdbc.core.JdbcTemplate
-import org.springframework.jdbc.core.RowMapper
 import org.springframework.stereotype.Controller
 import org.springframework.transaction.PlatformTransactionManager
 import org.springframework.transaction.support.DefaultTransactionDefinition
@@ -30,10 +29,10 @@ class DeadlockController2 : AbstractController() {
         setViewAndCommonObjects(mav, locale, "deadlock2")
         // Overwrite title (because title is the same as xee page)
         mav.addObject("title", msg?.getMessage("title.xee.page", null, locale))
-        var users: MutableList<User>?
+        val users: MutableList<User>?
         val order = getOrder(req)
         if ("POST" == req.method) {
-            users = ArrayList<User>()
+            users = ArrayList()
             var j = 0
             while (true) {
                 val uid = req.getParameter("uid_" + (j + 1)) ?: break
@@ -56,10 +55,10 @@ class DeadlockController2 : AbstractController() {
 
     private fun getOrder(req: HttpServletRequest): String {
         var order = req.getParameter("order")
-        if ("asc" == order) {
-            order = "desc"
+        order = if ("asc" == order) {
+            "desc"
         } else {
-            order = "asc"
+            "asc"
         }
         return order
     }
@@ -67,7 +66,7 @@ class DeadlockController2 : AbstractController() {
     private fun selectUsers(order: String, locale: Locale, mav: ModelAndView): MutableList<User>? {
         var users: MutableList<User>? = null
         try {
-            users = jdbcTemplate!!.query("select * from users where ispublic = 'true' order by id " + if ("desc" == order) "desc" else "asc", RowMapper<User> { rs, _ ->
+            users = jdbcTemplate!!.query("select * from users where ispublic = 'true' order by id " + if ("desc" == order) "desc" else "asc", { rs, _ ->
                 val user = User()
                 user.userId = rs.getString("id")
                 user.name = rs.getString("name")
@@ -77,11 +76,11 @@ class DeadlockController2 : AbstractController() {
             })
         } catch (e: DataAccessException) {
             mav.addObject("errmsg",
-                    msg?.getMessage("msg.db.access.error.occur", arrayOf<String?>(e.message), null, locale))
+                    msg?.getMessage("msg.db.access.error.occur", arrayOf(e.message), null, locale))
             log.error("DataAccessException occurs: ", e)
         } catch (e: Exception) {
             mav.addObject("errmsg",
-                    msg?.getMessage("msg.unknown.exception.occur", arrayOf<String?>(e.message), null, locale))
+                    msg?.getMessage("msg.unknown.exception.occur", arrayOf(e.message), null, locale))
             log.error("Exception occurs: ", e)
         }
 
@@ -95,7 +94,7 @@ class DeadlockController2 : AbstractController() {
         var executeUpdate = 0
         try {
             for (user in users) {
-                executeUpdate = executeUpdate + jdbcTemplate!!.update("Update users set name = ?, phone = ?, mail = ? where id = ?",
+                executeUpdate += jdbcTemplate!!.update("Update users set name = ?, phone = ?, mail = ? where id = ?",
                         user.name, user.phone, user.mail, user.userId)
                 log.info(user.userId + " is updated.")
                 Thread.sleep(500)
@@ -109,12 +108,12 @@ class DeadlockController2 : AbstractController() {
         } catch (e: DataAccessException) {
             txMgr!!.rollback(trnStatus)
             mav.addObject("errmsg",
-                    msg?.getMessage("msg.db.access.error.occur", arrayOf<String?>(e.message), null, locale))
+                    msg?.getMessage("msg.db.access.error.occur", arrayOf(e.message), null, locale))
             log.error("DataAccessException occurs: ", e)
         } catch (e: Exception) {
             txMgr!!.rollback(trnStatus)
             mav.addObject("errmsg",
-                    msg?.getMessage("msg.unknown.exception.occur", arrayOf<String?>(e.message), null, locale))
+                    msg?.getMessage("msg.unknown.exception.occur", arrayOf(e.message), null, locale))
             log.error("Exception occurs: ", e)
         }
 

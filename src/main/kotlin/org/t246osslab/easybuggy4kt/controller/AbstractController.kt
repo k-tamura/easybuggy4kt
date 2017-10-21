@@ -11,7 +11,7 @@ import java.util.*
 @Controller
 abstract class AbstractController {
 
-    protected var log = LoggerFactory.getLogger(this.javaClass)
+    protected var log = LoggerFactory.getLogger(this.javaClass)!!
 
     @Autowired
     protected var msg: MessageSource? = null

@@ -80,7 +80,7 @@ class MailHeaderInjectionController : AbstractController() {
         } catch (e: Exception) {
             log.error("Exception occurs: ", e)
             mav.addObject("errmsg",
-                    msg?.getMessage("msg.unknown.exception.occur", arrayOf<String?>(e.message), null, locale))
+                    msg?.getMessage("msg.unknown.exception.occur", arrayOf(e.message), null, locale))
         } finally {
             deleteUploadFiles(uploadedFiles)
         }
@@ -149,12 +149,9 @@ class MailHeaderInjectionController : AbstractController() {
     private fun extractFileName(part: Part): String? {
         val contentDisp = part.getHeader("content-disposition")
         val items = contentDisp.split(";".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
-        for (s in items) {
-            if (s.trim { it <= ' ' }.startsWith("filename")) {
-                return s.substring(s.indexOf('=') + 2, s.length - 1)
-            }
-        }
-        return null
+        return items
+                .firstOrNull { s -> s.trim { it <= ' ' }.startsWith("filename") }
+                ?.let { it.substring(it.indexOf('=') + 2, it.length - 1) }
     }
 
     /**
@@ -162,11 +159,9 @@ class MailHeaderInjectionController : AbstractController() {
      */
     private fun deleteUploadFiles(listFiles: List<File>?) {
         if (listFiles != null && !listFiles.isEmpty()) {
-            for (aFile in listFiles) {
-                if (!aFile.delete()) {
-                    log.debug("Cannot remove file: {}", aFile)
-                }
-            }
+            listFiles
+                    .filterNot { it.delete() }
+                    .forEach { log.debug("Cannot remove file: {}", it) }
         }
     }
 }

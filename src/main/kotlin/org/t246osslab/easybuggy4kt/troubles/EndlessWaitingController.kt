@@ -39,7 +39,7 @@ class EndlessWaitingController : AbstractController() {
                 } catch (e: InterruptedException) {
                     log.error("InterruptedException occurs: ", e)
                     mav.addObject("errmsg",
-                            msg?.getMessage("msg.unknown.exception.occur", arrayOf<String?>(e.message), null, locale))
+                            msg?.getMessage("msg.unknown.exception.occur", arrayOf(e.message), null, locale))
                 }
 
             }
@@ -52,8 +52,8 @@ class EndlessWaitingController : AbstractController() {
     private fun createBatchFile(count: Int, tmpdir: String): File? {
 
         val osName = System.getProperty("os.name").toLowerCase()
-        var batFileName: String?
-        var firstLine: String?
+        val batFileName: String?
+        val firstLine: String?
         if (osName.toLowerCase().startsWith("windows")) {
             batFileName = "test.bat"
             firstLine = "@echo off"
@@ -62,7 +62,7 @@ class EndlessWaitingController : AbstractController() {
             firstLine = "#!/bin/sh"
         }
 
-        var batFile: File?
+        val batFile: File?
         try {
             batFile = File(tmpdir, batFileName)
         } catch (e: Exception) {
@@ -73,10 +73,10 @@ class EndlessWaitingController : AbstractController() {
         try {
             FileWriter(batFile).use { fileWriter ->
                 BufferedWriter(fileWriter).use { buffwriter ->
-                    if (!batFile!!.setExecutable(true)) {
+                    if (!batFile.setExecutable(true)) {
                         log.debug("batFile.setExecutable(true) returns false.")
                     }
-                    buffwriter.write(firstLine!!)
+                    buffwriter.write(firstLine)
                     buffwriter.newLine()
 
                     var i = 0
@@ -92,7 +92,7 @@ class EndlessWaitingController : AbstractController() {
                     fileWriter.close()
                     if (!osName.toLowerCase().startsWith("windows")) {
                         val runtime = Runtime.getRuntime()
-                        runtime.exec("chmod 777 " + batFile!!.absolutePath)
+                        runtime.exec("chmod 777 " + batFile.absolutePath)
                     }
                 }
             }

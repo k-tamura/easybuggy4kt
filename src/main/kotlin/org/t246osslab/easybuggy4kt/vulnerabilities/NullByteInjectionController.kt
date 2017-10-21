@@ -23,7 +23,7 @@ class NullByteInjectionController : AbstractController() {
         if (StringUtils.isBlank(fileName)) {
             return mav
         } else {
-            fileName = fileName + ".pdf"
+            fileName += ".pdf"
         }
         val resource = ClassPathResource("/pdf/" + fileName)
         try {

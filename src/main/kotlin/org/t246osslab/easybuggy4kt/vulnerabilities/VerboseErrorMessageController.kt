@@ -42,7 +42,7 @@ class VerboseErrorMessageController : DefaultLoginController() {
             return doGet(mav, req, res, locale)
         } else if (authUser(userid, password)) {
             /* if authentication succeeded, then reset account lock */
-            var admin = userLoginHistory.get(userid)
+            var admin = userLoginHistory[userid]
             if (admin == null) {
                 val newAdmin = User()
                 newAdmin.userId = userid
@@ -67,7 +67,7 @@ class VerboseErrorMessageController : DefaultLoginController() {
         } else {
             /* account lock count +1 */
             if (userid != null) {
-                var admin = userLoginHistory.get(userid)
+                var admin = userLoginHistory[userid]
                 if (admin == null) {
                     val newAdmin = User()
                     newAdmin.userId = userid

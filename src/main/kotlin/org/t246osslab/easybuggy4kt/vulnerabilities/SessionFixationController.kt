@@ -22,7 +22,7 @@ class SessionFixationController : DefaultLoginController() {
 
     @RequestMapping(value = "/sessionfixation/login", method = arrayOf(RequestMethod.POST))
     @Throws(IOException::class)
-    override fun doPost(mav: ModelAndView, req: HttpServletRequest, res: HttpServletResponse, locale: Locale): ModelAndView {
-        return super.doPost(mav, req, res, locale)!!
+    override fun doPost(mav: ModelAndView, req: HttpServletRequest, res: HttpServletResponse, locale: Locale): ModelAndView? {
+        return super.doPost(mav, req, res, locale)
     }
 }

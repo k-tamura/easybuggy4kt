@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.servlet.ModelAndView
 import org.t246osslab.easybuggy4kt.controller.AbstractController
 import java.lang.management.ManagementFactory
-import java.lang.management.MemoryPoolMXBean
 import java.lang.management.MemoryType
 import java.util.*
 
@@ -24,23 +23,18 @@ class MemoryLeakController2 : AbstractController() {
             msg?.getMessage("label.permgen.space", null, locale)
         else
             msg?.getMessage("label.metaspace", null, locale)
-        mav.addObject("note", msg?.getMessage("msg.permgen.space.leak.occur", arrayOf<String?>(permName), locale))
+        mav.addObject("note", msg?.getMessage("msg.permgen.space.leak.occur", arrayOf(permName), locale))
         try {
             toDoRemove()
 
-            val nonHeapPoolMXBeans = ArrayList<MemoryPoolMXBean>()
             val memoryPoolMXBeans = ManagementFactory.getMemoryPoolMXBeans()
-            for (memoryPoolMXBean in memoryPoolMXBeans) {
-                if (MemoryType.NON_HEAP == memoryPoolMXBean.type) {
-                    nonHeapPoolMXBeans.add(memoryPoolMXBean)
-                }
-            }
+            val nonHeapPoolMXBeans = memoryPoolMXBeans.filter { MemoryType.NON_HEAP == it.type }
             mav.addObject("memoryPoolMXBeans", nonHeapPoolMXBeans)
 
         } catch (e: Exception) {
             log.error("Exception occurs: ", e)
             mav.addObject("errmsg",
-                    msg?.getMessage("msg.unknown.exception.occur", arrayOf<String?>(e.message), null, locale))
+                    msg?.getMessage("msg.unknown.exception.occur", arrayOf(e.message), null, locale))
 
         }
 

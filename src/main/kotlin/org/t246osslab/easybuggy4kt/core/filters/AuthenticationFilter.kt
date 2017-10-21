@@ -41,7 +41,7 @@ class AuthenticationFilter : Filter {
                 queryString = queryString.replace("logintype=$loginType&", "")
                 queryString = queryString.replace("&logintype=" + loginType!!, "")
                 queryString = queryString.replace("logintype=" + loginType, "")
-                if (queryString.length > 0) {
+                if (queryString.isNotEmpty()) {
                     queryString = "?" + queryString
                 }
             }
@@ -51,12 +51,10 @@ class AuthenticationFilter : Filter {
                 /* Not authenticated yet */
                 session = request.getSession(true)
                 session!!.setAttribute("target", target)
-                if (loginType == null) {
-                    response.sendRedirect(response.encodeRedirectURL("/login" + queryString))
-                } else if ("sessionfixation" == loginType) {
-                    response.sendRedirect(response.encodeRedirectURL("/$loginType/login$queryString"))
-                } else {
-                    response.sendRedirect("/$loginType/login$queryString")
+                when (loginType) {
+                    null -> response.sendRedirect(response.encodeRedirectURL("/login" + queryString))
+                    "sessionfixation" -> response.sendRedirect(response.encodeRedirectURL("/$loginType/login$queryString"))
+                    else -> response.sendRedirect("/$loginType/login$queryString")
                 }
                 return
             }

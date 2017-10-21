@@ -24,7 +24,7 @@ class IntegerOverflowController : AbstractController() {
             var multipleNumber: Long = 1
             if (times >= 0) {
                 for (i in 0 until times) {
-                    multipleNumber = multipleNumber * 2
+                    multipleNumber *= 2
                 }
                 thickness = BigDecimal(multipleNumber).divide(BigDecimal(10)) // mm
                 thicknessM = thickness!!.divide(BigDecimal(1000)) // m

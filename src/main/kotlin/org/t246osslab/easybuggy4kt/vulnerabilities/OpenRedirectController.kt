@@ -28,10 +28,10 @@ class OpenRedirectController : DefaultLoginController() {
         val userid = req.getParameter("userid")
         val password = req.getParameter("password")
         var loginQueryString: String? = req.getParameter("loginquerystring")
-        if (loginQueryString == null) {
-            loginQueryString = ""
+        loginQueryString = if (loginQueryString == null) {
+            ""
         } else {
-            loginQueryString = "?" + loginQueryString
+            "?" + loginQueryString
         }
 
         val session = req.getSession(true)
@@ -40,7 +40,7 @@ class OpenRedirectController : DefaultLoginController() {
             res.sendRedirect("/openredirect/login" + loginQueryString)
         } else if (authUser(userid, password)) {
             /* if authentication succeeded, then reset account lock */
-            var admin = userLoginHistory.get(userid)
+            var admin = userLoginHistory[userid]
             if (admin == null) {
                 val newAdmin = User()
                 newAdmin.userId = userid
@@ -70,7 +70,7 @@ class OpenRedirectController : DefaultLoginController() {
         } else {
             /* account lock count +1 */
             if (userid != null) {
-                var admin = userLoginHistory.get(userid)
+                var admin = userLoginHistory[userid]
                 if (admin == null) {
                     val newAdmin = User()
                     newAdmin.userId = userid

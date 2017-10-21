@@ -81,7 +81,7 @@ class DefaultLoginController : AbstractController() {
             session.setAttribute("authNMsg", "authenticated")
             session.setAttribute("userid", userid)
 
-            var target = session.getAttribute("target") as String?
+            val target = session.getAttribute("target") as String?
             if (target == null) {
                 res.sendRedirect("/admins/main")
             } else {
@@ -115,7 +115,7 @@ class DefaultLoginController : AbstractController() {
         }
         val admin = userLoginHistory[userid]
         return admin != null && admin.loginFailedCount == accountLockCount
-                && Date().time - admin.lastLoginFailedTime!!.getTime() < accountLockTime
+                && Date().time - admin.lastLoginFailedTime!!.time < accountLockTime
     }
 
     protected fun authUser(userId: String?, password: String?): Boolean {

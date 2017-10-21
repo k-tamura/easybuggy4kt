@@ -16,7 +16,7 @@ class RoundOffErrorController : AbstractController() {
                 locale: Locale): ModelAndView {
         setViewAndCommonObjects(mav, locale, "roundofferror")
         val number = NumberUtils.toDouble(strNumber, -1.0)
-        if (1 <= number && number <= 9) {
+        if (number in 1.0..9.0) {
             mav.addObject("number", strNumber)
             mav.addObject("result", number - 0.9)
         }

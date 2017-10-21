@@ -49,7 +49,7 @@ class StringPlusOperationController : AbstractController() {
                 log.info("Start Date: {}", Date())
                 var i = 0
                 while (i < length && i < MAX_LENGTH) {
-                    s = s + characters[rand.nextInt(characters.size)]
+                    s += characters[rand.nextInt(characters.size)]
                     i++
                     // builder.append(characters[rand.nextInt(characters.length)]);
                 }

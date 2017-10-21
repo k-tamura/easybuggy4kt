@@ -15,8 +15,8 @@ class NetworkSocketLeakController : AbstractController() {
     @RequestMapping(value = "/netsocketleak")
     fun process(mav: ModelAndView, req: HttpServletRequest, locale: Locale): ModelAndView {
         setViewAndCommonObjects(mav, locale, "netsocketleak")
-        var connection: HttpURLConnection?
-        var url: URL?
+        val connection: HttpURLConnection?
+        val url: URL?
         var pingURL: String? = req.getParameter("pingurl")
         try {
             if (pingURL == null) {
@@ -36,7 +36,7 @@ class NetworkSocketLeakController : AbstractController() {
         } catch (e: Exception) {
             log.error("Exception occurs: ", e)
             mav.addObject("errmsg",
-                    msg?.getMessage("msg.unknown.exception.occur", arrayOf<String?>(e.message), null, locale))
+                    msg?.getMessage("msg.unknown.exception.occur", arrayOf(e.message), null, locale))
         }
 
         return mav

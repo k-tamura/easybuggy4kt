@@ -5,7 +5,6 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.servlet.ModelAndView
 import org.t246osslab.easybuggy4kt.controller.AbstractController
 import java.lang.management.ManagementFactory
-import java.lang.management.MemoryPoolMXBean
 import java.lang.management.MemoryType
 import java.util.*
 
@@ -19,13 +18,8 @@ class MemoryLeakController : AbstractController() {
         setViewAndCommonObjects(mav, locale, "memoryleak")
         toDoRemove()
 
-        val heapPoolMXBeans = ArrayList<MemoryPoolMXBean>()
         val memoryPoolMXBeans = ManagementFactory.getMemoryPoolMXBeans()
-        for (memoryPoolMXBean in memoryPoolMXBeans) {
-            if (MemoryType.HEAP == memoryPoolMXBean.type) {
-                heapPoolMXBeans.add(memoryPoolMXBean)
-            }
-        }
+        val heapPoolMXBeans = memoryPoolMXBeans.filter { MemoryType.HEAP == it.type }
         mav.addObject("memoryPoolMXBeans", heapPoolMXBeans)
         return mav
     }
