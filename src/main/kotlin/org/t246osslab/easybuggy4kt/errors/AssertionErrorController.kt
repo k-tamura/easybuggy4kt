@@ -8,6 +8,6 @@ class AssertionErrorController {
 
     @RequestMapping(value = "/asserr")
     fun process() {
-        assert(1 >= 2) { "Invalid!" }
+        assert(false) { "Invalid!" }
     }
 }

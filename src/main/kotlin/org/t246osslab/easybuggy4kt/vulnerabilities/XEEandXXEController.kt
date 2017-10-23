@@ -190,7 +190,7 @@ class XEEandXXEController : AbstractController() {
             this.locale = locale
         }
 
-        fun upsertUser(attributes: Attributes?, locale: Locale?): String? {
+        private fun upsertUser(attributes: Attributes?, locale: Locale?): String? {
             var resultMessage: String? = null
             try {
                 val count = jdbcTemplate!!.queryForObject(
@@ -223,10 +223,10 @@ class XEEandXXEController : AbstractController() {
                     }
                 }
             } catch (e: DataAccessException) {
-                resultMessage = msg?.getMessage("msg.db.access.error.occur", arrayOf<String?>(e.message), locale)
+                resultMessage = msg?.getMessage("msg.db.access.error.occur", arrayOf(e.message), locale)
                 log.error("DataAccessException occurs: ", e)
             } catch (e: Exception) {
-                resultMessage = msg?.getMessage("msg.unknown.exception.occur", arrayOf<String?>(e.message), locale)
+                resultMessage = msg?.getMessage("msg.unknown.exception.occur", arrayOf(e.message), locale)
                 log.error("Exception occurs: ", e)
             }
 
