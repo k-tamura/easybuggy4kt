@@ -1,0 +1,13 @@
+language: java
+
+jdk:
+  - openjdk8
+  - oraclejdk8
+  
+install: true
+
+script: gradle clean check
+
+notifications:
+  email:
+    - ktamura.biz.80@gmail.com
