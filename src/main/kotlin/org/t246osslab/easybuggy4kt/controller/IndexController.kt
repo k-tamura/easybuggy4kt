@@ -9,6 +9,8 @@ import javax.servlet.http.HttpSession
 @Controller
 class IndexController : AbstractController() {
 
+    private var isFirstLoad = true
+
     @RequestMapping(value = "/")
     fun init(ses: HttpSession, mav: ModelAndView, locale: Locale): ModelAndView {
         ses.removeAttribute("dlpinit")
@@ -29,6 +31,8 @@ class IndexController : AbstractController() {
 
         val mode = System.getProperty("easybuggy.mode")
         mav.addObject("isOnlyVulnerabilities", mode != null && mode.equals("only-vulnerabilities", ignoreCase = true))
+        mav.addObject("isFirstLoad", isFirstLoad)
+        isFirstLoad = false
         return mav
     }
 }
