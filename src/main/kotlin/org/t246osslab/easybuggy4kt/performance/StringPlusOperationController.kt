@@ -42,7 +42,6 @@ class StringPlusOperationController : AbstractController() {
 
         if (length > 0) {
             mav.addObject("length", length)
-            // StringBuilder builder = new StringBuilder();
             var s = ""
             if (characters != null) {
                 val rand = java.util.Random()
@@ -51,13 +50,11 @@ class StringPlusOperationController : AbstractController() {
                 while (i < length && i < MAX_LENGTH) {
                     s += characters[rand.nextInt(characters.size)]
                     i++
-                    // builder.append(characters[rand.nextInt(characters.length)]);
                 }
                 log.info("End Date: {}", Date())
             }
             html.append(msg?.getMessage("label.execution.result", null, locale))
             html.append("<br /><br />")
-            // message.append(ESAPI.encoder().encodeForHTML(builder.toString()));
             html.append(ESAPI.encoder().encodeForHTML(s))
         } else {
             html.append(msg?.getMessage("msg.enter.positive.number", null, locale))

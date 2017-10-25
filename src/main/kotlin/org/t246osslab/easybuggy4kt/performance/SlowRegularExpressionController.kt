@@ -15,9 +15,7 @@ class SlowRegularExpressionController : AbstractController() {
     @RequestMapping(value = "/slowre")
     fun process(@RequestParam(value = "word", required = false) word: String?, mav: ModelAndView,
                 locale: Locale): ModelAndView {
-        val message: String?
-        setViewAndCommonObjects(mav, locale, "slowregex")
-        message = if (!StringUtils.isBlank(word)) {
+        val message: String? = if (!StringUtils.isBlank(word)) {
             if (isMatched(word!!)) {
                 msg?.getMessage("msg.match.regular.expression", null, locale)
             } else {
@@ -26,6 +24,7 @@ class SlowRegularExpressionController : AbstractController() {
         } else {
             msg?.getMessage("msg.enter.string", null, locale)
         }
+        setViewAndCommonObjects(mav, locale, "slowregex")
         mav.addObject("msg", message)
         return mav
     }
