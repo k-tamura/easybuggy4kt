@@ -23,7 +23,7 @@ import javax.servlet.http.HttpServletResponse
 class ClickJackingController : AbstractController() {
 
     @Autowired
-    internal var ldapTemplate: LdapTemplate? = null
+    private var ldapTemplate: LdapTemplate? = null
 
     @RequestMapping(value = "/admins/clickjacking", method = arrayOf(RequestMethod.GET))
     fun doGet(mav: ModelAndView, req: HttpServletRequest, res: HttpServletResponse, locale: Locale): ModelAndView {
@@ -33,7 +33,7 @@ class ClickJackingController : AbstractController() {
 
     @RequestMapping(value = "/admins/clickjacking", method = arrayOf(RequestMethod.POST))
     @Throws(IOException::class)
-    protected fun doPost(mav: ModelAndView, req: HttpServletRequest, res: HttpServletResponse, locale: Locale): ModelAndView? {
+    private fun doPost(mav: ModelAndView, req: HttpServletRequest, res: HttpServletResponse, locale: Locale): ModelAndView? {
         setViewAndCommonObjects(mav, locale, "clickjacking")
 
         val session = req.session
@@ -52,7 +52,7 @@ class ClickJackingController : AbstractController() {
                 val item = ModificationItem(DirContext.REPLACE_ATTRIBUTE,
                         BasicAttribute("mail", mail))
                 ldapTemplate!!.modifyAttributes(
-                        "uid=" + ESAPI.encoder().encodeForLDAP(userid.trim { it <= ' ' }) + ",ou=people,dc=t246osslab,dc=org",
+                        "uid=" + encodeForLDAP(userid.trim { it <= ' ' }) + ",ou=people,dc=t246osslab,dc=org",
                         arrayOf(item))
                 mav.addObject("mail", mail)
 

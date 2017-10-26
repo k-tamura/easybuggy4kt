@@ -40,17 +40,7 @@ class OpenRedirectController : DefaultLoginController() {
             res.sendRedirect("/openredirect/login" + loginQueryString)
         } else if (authUser(userid, password)) {
             /* if authentication succeeded, then reset account lock */
-            var admin = userLoginHistory[userid]
-            if (admin == null) {
-                val newAdmin = User()
-                newAdmin.userId = userid
-                admin = userLoginHistory.putIfAbsent(userid, newAdmin)
-                if (admin == null) {
-                    admin = newAdmin
-                }
-            }
-            admin.loginFailedCount = 0
-            admin.lastLoginFailedTime = null
+            resetAccountLock(userid)
 
             session.setAttribute("authNMsg", "authenticated")
             session.setAttribute("userid", userid)
@@ -69,19 +59,7 @@ class OpenRedirectController : DefaultLoginController() {
             }
         } else {
             /* account lock count +1 */
-            if (userid != null) {
-                var admin = userLoginHistory[userid]
-                if (admin == null) {
-                    val newAdmin = User()
-                    newAdmin.userId = userid
-                    admin = userLoginHistory.putIfAbsent(userid, newAdmin)
-                    if (admin == null) {
-                        admin = newAdmin
-                    }
-                }
-                admin.loginFailedCount = admin.loginFailedCount + 1
-                admin.lastLoginFailedTime = Date()
-            }
+            incrementAccountLockNum(userid)
 
             session.setAttribute("authNMsg", "msg.authentication.fail")
             res.sendRedirect("/openredirect/login" + loginQueryString)

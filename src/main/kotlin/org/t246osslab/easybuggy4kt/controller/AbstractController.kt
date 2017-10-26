@@ -7,6 +7,9 @@ import org.springframework.context.NoSuchMessageException
 import org.springframework.stereotype.Controller
 import org.springframework.web.servlet.ModelAndView
 import java.util.*
+import org.owasp.esapi.ESAPI
+
+
 
 @Controller
 abstract class AbstractController {
@@ -35,5 +38,27 @@ abstract class AbstractController {
         } else {
             log.warn("viewName is null")
         }
+    }
+
+    /**
+     * Encode data for use in HTML using HTML entity encoding
+     * Note that this method just call `ESAPI.encoder().encodeForHTML(String)`.
+     *
+     * @param input the text to encode for HTML
+     * @return input encoded for HTML
+     */
+    protected fun encodeForHTML(input: String): String {
+        return ESAPI.encoder().encodeForHTML(input)
+    }
+
+    /**
+     * Encode data for use in LDAP queries.
+     * Note that this method just call `ESAPI.encoder().encodeForLDAP((String)`.
+     *
+     * @param input the text to encode for LDAP
+     * @return input encoded for use in LDAP
+     */
+    protected fun encodeForLDAP(input: String): String {
+        return ESAPI.encoder().encodeForLDAP(input)
     }
 }

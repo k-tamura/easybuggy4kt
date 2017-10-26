@@ -16,16 +16,14 @@ import org.springframework.web.multipart.MultipartFile
 import org.springframework.web.servlet.ModelAndView
 import org.t246osslab.easybuggy4kt.controller.AbstractController
 import org.t246osslab.easybuggy4kt.core.model.User
+import org.t246osslab.easybuggy4kt.core.utils.MultiPartFileUtils.Companion.writeFile
 import org.xml.sax.Attributes
 import org.xml.sax.SAXException
 import org.xml.sax.helpers.DefaultHandler
 import java.io.File
-import java.io.FileNotFoundException
-import java.io.FileOutputStream
 import java.io.IOException
 import java.util.*
 import javax.servlet.http.HttpServletRequest
-import javax.servlet.http.HttpServletResponse
 import javax.xml.XMLConstants
 import javax.xml.parsers.ParserConfigurationException
 import javax.xml.parsers.SAXParser
@@ -39,7 +37,7 @@ class XEEandXXEController : AbstractController() {
 
     @RequestMapping(value = *arrayOf("/xee", "/xxe"), method = arrayOf(RequestMethod.GET))
     @Throws(IOException::class)
-    fun doGet(mav: ModelAndView, req: HttpServletRequest, res: HttpServletResponse, locale: Locale): ModelAndView {
+    fun doGet(mav: ModelAndView, req: HttpServletRequest, locale: Locale): ModelAndView {
         println("test")
         var resource: Resource = ClassPathResource("/xml/sample_users.xml")
         mav.addObject("sample_users_xml", IOUtils.toString(resource.inputStream))
@@ -63,10 +61,10 @@ class XEEandXXEController : AbstractController() {
     @RequestMapping(value = *arrayOf("/xee", "/xxe"), headers = arrayOf("content-type=multipart/*"), method = arrayOf(RequestMethod.POST))
     @Throws(IOException::class)
     fun doPost(@RequestParam("file") file: MultipartFile, mav: ModelAndView, req: HttpServletRequest,
-               res: HttpServletResponse, locale: Locale): ModelAndView {
+               locale: Locale): ModelAndView {
 
         if (req.getAttribute("errorMessage") != null) {
-            return doGet(mav, req, res, locale)
+            return doGet(mav, req, locale)
         }
 
         // Get absolute path of the web application
@@ -81,10 +79,10 @@ class XEEandXXEController : AbstractController() {
 
         val fileName = file.originalFilename
         if (StringUtils.isBlank(fileName)) {
-            return doGet(mav, req, res, locale)
+            return doGet(mav, req, locale)
         } else if (!fileName.endsWith(".xml")) {
             mav.addObject("errmsg", msg?.getMessage("msg.not.xml.file", null, locale))
-            return doGet(mav, req, res, locale)
+            return doGet(mav, req, locale)
         }
         var isRegistered = writeFile(savePath, file, fileName)
 
@@ -126,30 +124,11 @@ class XEEandXXEController : AbstractController() {
             }
             setViewAndCommonObjects(mav, locale, "xxe")
         }
-        mav.addObject("resultList", customHandler.result)
-        return mav
-    }
-
-    @Throws(IOException::class)
-    private fun writeFile(savePath: String, filePart: MultipartFile, fileName: String): Boolean {
-        var isRegistered = false
-        try {
-            FileOutputStream(savePath + File.separator + fileName).use { out ->
-                filePart.inputStream.use { `in` ->
-                    val bytes = ByteArray(1024)
-                    var read = `in`.read(bytes)
-                    while (read != -1) {
-                        out.write(bytes, 0, read)
-                        read = `in`.read(bytes)
-                    }
-                }
-            }
-        } catch (e: FileNotFoundException) {
-            // Ignore because file already exists
-            isRegistered = true
+        if (customHandler.result.size > 0) {
+            mav.addObject("resultList", customHandler.result)
+            mav.addObject("note", null)
         }
-
-        return isRegistered
+        return mav
     }
 
     inner class CustomHandler : DefaultHandler() {

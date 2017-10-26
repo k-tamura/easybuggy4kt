@@ -66,17 +66,7 @@ class DefaultLoginController : AbstractController() {
             res.sendRedirect("/login")
         } else if (authUser(userid, password)) {
             /* if authentication succeeded, then reset account lock */
-            var admin: User? = userLoginHistory[userid!!]
-            if (admin == null) {
-                val newAdmin = User()
-                newAdmin.userId = userid
-                admin = userLoginHistory.putIfAbsent(userid, newAdmin)
-                if (admin == null) {
-                    admin = newAdmin
-                }
-            }
-            admin.loginFailedCount = 0
-            admin.lastLoginFailedTime = null
+            resetAccountLock(userid)
 
             session.setAttribute("authNMsg", "authenticated")
             session.setAttribute("userid", userid)
@@ -90,23 +80,37 @@ class DefaultLoginController : AbstractController() {
             }
         } else {
             /* account lock count +1 */
-            if (userid != null) {
-                var admin: User? = userLoginHistory[userid]
-                if (admin == null) {
-                    val newAdmin = User()
-                    newAdmin.userId = userid
-                    admin = userLoginHistory.putIfAbsent(userid, newAdmin)
-                    if (admin == null) {
-                        admin = newAdmin
-                    }
-                }
-                admin.loginFailedCount = admin.loginFailedCount + 1
-                admin.lastLoginFailedTime = Date()
-            }
+            incrementAccountLockNum(userid)
+
             session.setAttribute("authNMsg", "msg.authentication.fail")
             return doGet(mav, req, res, locale)
         }
         return null
+    }
+
+    protected fun incrementAccountLockNum(userid: String) {
+        val admin = getUser(userid)
+        admin.loginFailedCount = admin.loginFailedCount + 1
+        admin.lastLoginFailedTime = Date()
+    }
+
+    protected fun resetAccountLock(userid: String) {
+        val admin = getUser(userid)
+        admin.loginFailedCount = 0
+        admin.lastLoginFailedTime = null
+    }
+
+    protected fun getUser(userid: String): User {
+        var admin: User? = userLoginHistory[userid!!]
+        if (admin == null) {
+            val newAdmin = User()
+            newAdmin.userId = userid
+            admin = userLoginHistory.putIfAbsent(userid, newAdmin)
+            if (admin == null) {
+                admin = newAdmin
+            }
+        }
+        return admin
     }
 
     protected fun isAccountLocked(userid: String?): Boolean {

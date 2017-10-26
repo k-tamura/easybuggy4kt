@@ -18,7 +18,7 @@ class JVMCrashByEAVController {
         }
 
     @RequestMapping(value = "/jvmcrasheav")
-    fun process(req: HttpServletRequest, res: HttpServletResponse) {
+    fun process() {
         try {
             unsafe.getByte(0)
         } catch (e: Exception) {

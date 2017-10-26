@@ -9,27 +9,26 @@ import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.multipart.MultipartFile
 import org.springframework.web.servlet.ModelAndView
 import org.t246osslab.easybuggy4kt.controller.AbstractController
+import org.t246osslab.easybuggy4kt.core.utils.MultiPartFileUtils.Companion.writeFile
 import java.io.File
-import java.io.FileNotFoundException
-import java.io.FileOutputStream
 import java.io.IOException
 import java.util.*
 import javax.imageio.ImageIO
+import javax.imageio.ImageIO.write
 import javax.servlet.http.HttpServletRequest
-import javax.servlet.http.HttpServletResponse
 
 @Controller
 class UnrestrictedSizeUploadController : AbstractController() {
 
     @RequestMapping(value = "/ursupload", method = arrayOf(RequestMethod.GET))
-    fun doGet(mav: ModelAndView, req: HttpServletRequest, res: HttpServletResponse, locale: Locale): ModelAndView {
+    fun doGet(mav: ModelAndView, locale: Locale): ModelAndView {
         setViewAndCommonObjects(mav, locale, "unrestrictedsizeupload")
         return mav
     }
 
     @RequestMapping(value = "/ursupload", headers = arrayOf("content-type=multipart/*"), method = arrayOf(RequestMethod.POST))
     @Throws(IOException::class)
-    fun doPost(@RequestParam("file") file: MultipartFile, mav: ModelAndView, req: HttpServletRequest, res: HttpServletResponse, locale: Locale): ModelAndView {
+    fun doPost(@RequestParam("file") file: MultipartFile, mav: ModelAndView, req: HttpServletRequest, locale: Locale): ModelAndView {
         setViewAndCommonObjects(mav, locale, "unrestrictedsizeupload")
 
         // Get absolute path of the web application
@@ -44,10 +43,10 @@ class UnrestrictedSizeUploadController : AbstractController() {
 
         val fileName = file.originalFilename
         if (StringUtils.isBlank(fileName)) {
-            return doGet(mav, req, res, locale)
+            return doGet(mav, locale)
         } else if (!isImageFile(fileName)) {
             mav.addObject("errmsg", msg?.getMessage("msg.not.image.file", null, locale))
-            return doGet(mav, req, res, locale)
+            return doGet(mav, locale)
         }
         var isConverted = writeFile(savePath, file, fileName)
 
@@ -63,28 +62,6 @@ class UnrestrictedSizeUploadController : AbstractController() {
             mav.addObject("note", msg?.getMessage("msg.note.unrestrictedsizeupload", null, locale))
         }
         return mav
-    }
-
-    @Throws(IOException::class)
-    private fun writeFile(savePath: String, filePart: MultipartFile, fileName: String): Boolean {
-        var isConverted = false
-        try {
-            FileOutputStream(savePath + File.separator + fileName).use { out ->
-                filePart.inputStream.use { `in` ->
-                    val bytes = ByteArray(1024)
-                    var read = `in`.read(bytes)
-                    while (read != -1) {
-                        out.write(bytes, 0, read)
-                        read = `in`.read(bytes)
-                    }
-                }
-            }
-        } catch (e: FileNotFoundException) {
-            // Ignore because file already exists
-            isConverted = true
-        }
-
-        return isConverted
     }
 
     private fun isImageFile(fileName: String): Boolean {
@@ -110,7 +87,7 @@ class UnrestrictedSizeUploadController : AbstractController() {
                 }
             }
             // Output the image
-            ImageIO.write(image, "png", File(fileName))
+            write(image, "png", File(fileName))
             isConverted = true
         } catch (e: Exception) {
             // Log and ignore the exception

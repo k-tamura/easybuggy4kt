@@ -17,7 +17,6 @@ import java.util.*
 import javax.mail.MessagingException
 import javax.servlet.ServletException
 import javax.servlet.http.HttpServletRequest
-import javax.servlet.http.HttpServletResponse
 import javax.servlet.http.Part
 
 /**
@@ -36,7 +35,7 @@ class MailHeaderInjectionController : AbstractController() {
 
     // administrator's mail address
     @Value("\${mail.admin.address}")
-    internal var adminAddress: String? = null
+    private var adminAddress: String? = null
 
     @Autowired
     private val javaMailSender: JavaMailSender? = null
@@ -45,7 +44,7 @@ class MailHeaderInjectionController : AbstractController() {
         get() = !(StringUtils.isBlank(username) || StringUtils.isBlank(password) || StringUtils.isBlank(adminAddress))
 
     @RequestMapping(value = "/mailheaderijct", method = arrayOf(RequestMethod.GET))
-    fun doGet(mav: ModelAndView, req: HttpServletRequest, res: HttpServletResponse, locale: Locale): ModelAndView {
+    fun doGet(mav: ModelAndView, locale: Locale): ModelAndView {
         setViewAndCommonObjects(mav, locale, "mailheaderinjection")
         if (isReadyToSendEmail) {
             mav.addObject("isReady", "yes")
@@ -57,7 +56,7 @@ class MailHeaderInjectionController : AbstractController() {
 
     @RequestMapping(value = "/mailheaderijct", method = arrayOf(RequestMethod.POST))
     @Throws(IOException::class, ServletException::class)
-    fun doPost(mav: ModelAndView, req: HttpServletRequest, res: HttpServletResponse, locale: Locale): ModelAndView {
+    fun doPost(mav: ModelAndView, req: HttpServletRequest, locale: Locale): ModelAndView {
         setViewAndCommonObjects(mav, locale, "mailheaderinjection")
 
         val uploadedFiles = saveUploadedFiles(req)
@@ -68,7 +67,7 @@ class MailHeaderInjectionController : AbstractController() {
         val content = req.getParameter("content")
         if (StringUtils.isBlank(subject) || StringUtils.isBlank(content)) {
             mav.addObject("errmsg", msg?.getMessage("msg.mail.is.empty", null, locale))
-            return doGet(mav, req, res, locale)
+            return doGet(mav, locale)
         }
         val sb = StringBuilder()
         sb.append(msg?.getMessage("label.name", null, locale)).append(": ").append(name).append("<br>")
@@ -84,7 +83,7 @@ class MailHeaderInjectionController : AbstractController() {
         } finally {
             deleteUploadFiles(uploadedFiles)
         }
-        return doGet(mav, req, res, locale)
+        return doGet(mav, locale)
     }
 
     @Throws(MessagingException::class)

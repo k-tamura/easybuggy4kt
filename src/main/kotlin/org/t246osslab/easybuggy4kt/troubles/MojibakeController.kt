@@ -16,13 +16,13 @@ class MojibakeController : AbstractController() {
 
     @RequestMapping(value = "/mojibake")
     fun process(@RequestParam(value = "string", required = false) string: String?, mav: ModelAndView,
-                req: HttpServletRequest, locale: Locale): ModelAndView {
+                locale: Locale): ModelAndView {
         setViewAndCommonObjects(mav, locale, "mojibake")
         if (!StringUtils.isBlank(string)) {
             // Capitalize the given string
             val capitalizedName = WordUtils.capitalize(string)
             mav.addObject("msg", msg?.getMessage("label.capitalized.string", null, locale) + " : "
-                    + ESAPI.encoder().encodeForHTML(capitalizedName))
+                    + encodeForHTML(capitalizedName))
         } else {
             mav.addObject("msg", msg?.getMessage("msg.enter.string", null, locale))
         }

@@ -2,7 +2,6 @@ package org.t246osslab.easybuggy4kt.troubles
 
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.servlet.ModelAndView
 import org.t246osslab.easybuggy4kt.controller.AbstractController
 import java.io.*
@@ -14,8 +13,7 @@ class FileDescriptorLeakController : AbstractController() {
     private var count: Long = 0
 
     @RequestMapping(value = "/filedescriptorleak")
-    fun process(@RequestParam(value = "pingurl", required = false) pingURL: String?,
-                req: HttpServletRequest, mav: ModelAndView, locale: Locale): ModelAndView {
+    fun process(req: HttpServletRequest, mav: ModelAndView, locale: Locale): ModelAndView {
 
         setViewAndCommonObjects(mav, locale, "filedescriptorleak")
         try {

@@ -45,7 +45,7 @@ class CSRFController : AbstractController() {
                 val item = ModificationItem(DirContext.REPLACE_ATTRIBUTE,
                         BasicAttribute("userPassword", password))
                 ldapTemplate!!.modifyAttributes(
-                        "uid=" + ESAPI.encoder().encodeForLDAP(userid.trim { it <= ' ' }) + ",ou=people,dc=t246osslab,dc=org",
+                        "uid=" + encodeForLDAP(userid.trim { it <= ' ' }) + ",ou=people,dc=t246osslab,dc=org",
                         arrayOf(item))
             } catch (e: Exception) {
                 log.error("Exception occurs: ", e)

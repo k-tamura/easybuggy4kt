@@ -8,20 +8,19 @@ import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.multipart.MultipartFile
 import org.springframework.web.servlet.ModelAndView
 import org.t246osslab.easybuggy4kt.controller.AbstractController
+import org.t246osslab.easybuggy4kt.core.utils.MultiPartFileUtils.Companion.writeFile
 import java.io.File
-import java.io.FileNotFoundException
-import java.io.FileOutputStream
 import java.io.IOException
 import java.util.*
 import javax.imageio.ImageIO
+import javax.imageio.ImageIO.write
 import javax.servlet.http.HttpServletRequest
-import javax.servlet.http.HttpServletResponse
 
 @Controller
 class UnrestrictedExtensionUploadController : AbstractController() {
 
     @RequestMapping(value = "/ureupload", method = arrayOf(RequestMethod.GET))
-    fun doGet(mav: ModelAndView, req: HttpServletRequest, res: HttpServletResponse, locale: Locale): ModelAndView {
+    fun doGet(mav: ModelAndView, req: HttpServletRequest, locale: Locale): ModelAndView {
         setViewAndCommonObjects(mav, locale, "unrestrictedextupload")
         if (req.getAttribute("errorMessage") != null) {
             mav.addObject("errmsg", req.getAttribute("errorMessage"))
@@ -31,10 +30,10 @@ class UnrestrictedExtensionUploadController : AbstractController() {
 
     @RequestMapping(value = "/ureupload", headers = arrayOf("content-type=multipart/*"), method = arrayOf(RequestMethod.POST))
     @Throws(IOException::class)
-    fun doPost(@RequestParam("file") file: MultipartFile, mav: ModelAndView, req: HttpServletRequest, res: HttpServletResponse, locale: Locale): ModelAndView {
+    fun doPost(@RequestParam("file") file: MultipartFile, mav: ModelAndView, req: HttpServletRequest, locale: Locale): ModelAndView {
 
         if (req.getAttribute("errorMessage") != null) {
-            return doGet(mav, req, res, locale)
+            return doGet(mav, req, locale)
         }
 
         setViewAndCommonObjects(mav, locale, "unrestrictedextupload")
@@ -50,7 +49,7 @@ class UnrestrictedExtensionUploadController : AbstractController() {
 
         val fileName = file.originalFilename
         if (StringUtils.isBlank(fileName)) {
-            return doGet(mav, req, res, locale)
+            return doGet(mav, req, locale)
         }
         var isConverted = writeFile(savePath, file, fileName)
 
@@ -66,28 +65,6 @@ class UnrestrictedExtensionUploadController : AbstractController() {
             mav.addObject("errmsg", msg?.getMessage("msg.convert.grayscale.fail", null, locale))
         }
         return mav
-    }
-
-    @Throws(IOException::class)
-    private fun writeFile(savePath: String, filePart: MultipartFile, fileName: String): Boolean {
-        var isConverted = false
-        try {
-            FileOutputStream(savePath + File.separator + fileName).use { out ->
-                filePart.inputStream.use { `in` ->
-                    val bytes = ByteArray(1024)
-                    var read = `in`.read(bytes)
-                    while (read != -1) {
-                        out.write(bytes, 0, read)
-                        read = `in`.read(bytes)
-                    }
-                }
-            }
-        } catch (e: FileNotFoundException) {
-            // Ignore because file already exists
-            isConverted = true
-        }
-
-        return isConverted
     }
 
     // Convert color image into gray scale image.
@@ -121,7 +98,7 @@ class UnrestrictedExtensionUploadController : AbstractController() {
                 }
             }
             // Output the image
-            ImageIO.write(image, "png", File(fileName))
+            write(image, "png", File(fileName))
             isConverted = true
         } catch (e: Exception) {
             // Log and ignore the exception

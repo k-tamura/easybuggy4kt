@@ -55,7 +55,7 @@ class StringPlusOperationController : AbstractController() {
             }
             html.append(msg?.getMessage("label.execution.result", null, locale))
             html.append("<br /><br />")
-            html.append(ESAPI.encoder().encodeForHTML(s))
+            html.append(encodeForHTML(s))
         } else {
             html.append(msg?.getMessage("msg.enter.positive.number", null, locale))
         }
