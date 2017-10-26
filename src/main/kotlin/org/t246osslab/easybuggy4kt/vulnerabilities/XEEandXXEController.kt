@@ -38,7 +38,7 @@ class XEEandXXEController : AbstractController() {
     @RequestMapping(value = *arrayOf("/xee", "/xxe"), method = arrayOf(RequestMethod.GET))
     @Throws(IOException::class)
     fun doGet(mav: ModelAndView, req: HttpServletRequest, locale: Locale): ModelAndView {
-        println("test")
+
         var resource: Resource = ClassPathResource("/xml/sample_users.xml")
         mav.addObject("sample_users_xml", IOUtils.toString(resource.inputStream))
         if ("/xee" == req.servletPath) {
