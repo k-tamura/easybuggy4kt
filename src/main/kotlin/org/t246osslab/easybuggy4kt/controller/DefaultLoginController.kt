@@ -101,7 +101,7 @@ class DefaultLoginController : AbstractController() {
     }
 
     protected fun getUser(userid: String): User {
-        var admin: User? = userLoginHistory[userid!!]
+        var admin: User? = userLoginHistory[userid]
         if (admin == null) {
             val newAdmin = User()
             newAdmin.userId = userid

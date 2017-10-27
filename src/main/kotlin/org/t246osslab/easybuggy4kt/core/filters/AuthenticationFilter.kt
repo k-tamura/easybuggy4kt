@@ -10,9 +10,6 @@ import javax.servlet.http.HttpSession
 /**
  * Servlet Filter for authentication
  */
-/**
- * Default constructor.
- */
 @Component
 class AuthenticationFilter : Filter {
 

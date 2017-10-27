@@ -15,9 +15,6 @@ import javax.servlet.http.HttpServletResponse
 /**
  * Servlet Filter for security
  */
-/**
- * Default constructor.
- */
 @Component
 class SecurityFilter : Filter {
 

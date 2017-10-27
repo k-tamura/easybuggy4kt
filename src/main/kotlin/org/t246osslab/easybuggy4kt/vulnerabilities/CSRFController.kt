@@ -1,7 +1,6 @@
 package org.t246osslab.easybuggy4kt.vulnerabilities
 
 import org.apache.commons.lang.StringUtils
-import org.owasp.esapi.ESAPI
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.ldap.core.LdapTemplate
 import org.springframework.stereotype.Controller

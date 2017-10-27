@@ -2,14 +2,12 @@ package org.t246osslab.easybuggy4kt.troubles
 
 import org.apache.commons.lang3.StringUtils
 import org.apache.commons.lang3.text.WordUtils
-import org.owasp.esapi.ESAPI
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.servlet.ModelAndView
 import org.t246osslab.easybuggy4kt.controller.AbstractController
 import java.util.*
-import javax.servlet.http.HttpServletRequest
 
 @Controller
 class MojibakeController : AbstractController() {

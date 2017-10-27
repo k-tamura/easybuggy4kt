@@ -10,9 +10,7 @@ import org.springframework.web.servlet.ModelAndView
 import org.t246osslab.easybuggy4kt.controller.AbstractController
 import org.t246osslab.easybuggy4kt.core.model.User
 import java.sql.Connection
-import java.sql.ResultSet
 import java.sql.SQLException
-import java.sql.Statement
 import java.util.*
 
 @Controller
@@ -54,10 +52,8 @@ class DBConnectionLeakController : AbstractController() {
     private fun selectUsers(): List<User> {
         val users = ArrayList<User>()
         val conn: Connection? = jdbcTemplate!!.dataSource.connection
-        val stmt: Statement?
-        val rs: ResultSet?
-        stmt = conn!!.createStatement()
-        rs = stmt!!.executeQuery("select id, name, phone, mail from users where ispublic = 'true'")
+        val stmt = conn!!.createStatement()
+        val rs = stmt!!.executeQuery("select id, name, phone, mail from users where ispublic = 'true'")
         while (rs!!.next()) {
             val user = User()
             user.userId = rs.getString("id")

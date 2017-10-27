@@ -23,7 +23,8 @@ class User : Serializable {
     var lastLoginFailedTime: Date? = null
 
     override fun toString(): String {
-        return "User dn=$dn [userId=$userId, name=$name, password=$password, secret=$secret, phone=$phone, mail=$mail, loginFailedCount=$loginFailedCount, lastLoginFailedTime=$lastLoginFailedTime]"
+        return "User dn=$dn [userId=$userId, name=$name, password=$password, secret=$secret, phone=$phone, " +
+                "mail=$mail, loginFailedCount=$loginFailedCount, lastLoginFailedTime=$lastLoginFailedTime]"
     }
 
     companion object {
