@@ -43,8 +43,8 @@ class AuthenticationFilter : Filter {
                 }
             }
             var session: HttpSession? = request.getSession(false)
-            if (session == null || session.getAttribute("authNMsg") == null
-                    || "authenticated" != session.getAttribute("authNMsg")) {
+            val authNMsg = session?.getAttribute("authNMsg")
+            if (session == null || authNMsg == null || "authenticated" != authNMsg) {
                 /* Not authenticated yet */
                 session = request.getSession(true)
                 session!!.setAttribute("target", target)

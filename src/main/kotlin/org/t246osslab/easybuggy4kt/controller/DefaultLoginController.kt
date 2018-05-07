@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
 @Controller
-class DefaultLoginController : AbstractController() {
+open class DefaultLoginController : AbstractController() {
 
     @Value("\${account.lock.time}")
     internal var accountLockTime: Long = 0
@@ -31,10 +31,12 @@ class DefaultLoginController : AbstractController() {
     protected var ldapTemplate: LdapTemplate? = null
 
     /* User's login history using in-memory account locking */
-    protected var userLoginHistory: ConcurrentHashMap<String, User> = ConcurrentHashMap()
+    companion object {
+        protected var userLoginHistory: ConcurrentHashMap<String, User> = ConcurrentHashMap()
+    }
 
     @RequestMapping(value = "/login", method = arrayOf(RequestMethod.GET))
-    fun doGet(mav: ModelAndView, req: HttpServletRequest, res: HttpServletResponse, locale: Locale): ModelAndView {
+    open fun doGet(mav: ModelAndView, req: HttpServletRequest, res: HttpServletResponse, locale: Locale): ModelAndView {
         setViewAndCommonObjects(mav, locale, "login")
 
         val hiddenMap = HashMap<String, Array<String>>()
@@ -46,8 +48,9 @@ class DefaultLoginController : AbstractController() {
         }
 
         val session = req.getSession(true)
-        if (session.getAttribute("authNMsg") != null && "authenticated" != session.getAttribute("authNMsg")) {
-            mav.addObject("errmsg", msg?.getMessage(session.getAttribute("authNMsg") as String, null, locale))
+        val authNMsg = session.getAttribute("authNMsg")
+        if (authNMsg != null && "authenticated" != authNMsg) {
+            mav.addObject("errmsg", authNMsg)
             session.setAttribute("authNMsg", null)
         }
         return mav
@@ -55,15 +58,14 @@ class DefaultLoginController : AbstractController() {
 
     @RequestMapping(value = "/login", method = arrayOf(RequestMethod.POST))
     @Throws(IOException::class)
-    fun doPost(mav: ModelAndView, req: HttpServletRequest, res: HttpServletResponse, locale: Locale): ModelAndView? {
+    open fun doPost(mav: ModelAndView, req: HttpServletRequest, res: HttpServletResponse, locale: Locale): ModelAndView? {
 
         val userid = StringUtils.trim(req.getParameter("userid"))
         val password = StringUtils.trim(req.getParameter("password"))
 
         val session = req.getSession(true)
         if (isAccountLocked(userid)) {
-            session.setAttribute("authNMsg", "msg.account.locked")
-            res.sendRedirect("/login")
+            session.setAttribute("authNMsg", msg?.getMessage("msg.authentication.fail", null, locale))
         } else if (authUser(userid, password)) {
             /* if authentication succeeded, then reset account lock */
             resetAccountLock(userid)
@@ -78,17 +80,16 @@ class DefaultLoginController : AbstractController() {
                 session.removeAttribute("target")
                 res.sendRedirect(target)
             }
+            return null
         } else {
-            /* account lock count +1 */
-            incrementAccountLockNum(userid)
-
-            session.setAttribute("authNMsg", "msg.authentication.fail")
-            return doGet(mav, req, res, locale)
+            session.setAttribute("authNMsg", msg?.getMessage("msg.authentication.fail", null, locale))
         }
-        return null
+        /* account lock count +1 */
+        incrementLoginFailedCount(userid)
+        return doGet(mav, req, res, locale)
     }
 
-    protected fun incrementAccountLockNum(userid: String) {
+    protected fun incrementLoginFailedCount(userid: String) {
         val admin = getUser(userid)
         admin.loginFailedCount = admin.loginFailedCount + 1
         admin.lastLoginFailedTime = Date()
@@ -118,11 +119,11 @@ class DefaultLoginController : AbstractController() {
             return false
         }
         val admin = userLoginHistory[userid]
-        return admin != null && admin.loginFailedCount == accountLockCount
+        return admin != null && admin.loginFailedCount >= accountLockCount
                 && Date().time - admin.lastLoginFailedTime!!.time < accountLockTime
     }
 
-    protected fun authUser(userId: String?, password: String?): Boolean {
+    protected open fun authUser(userId: String?, password: String?): Boolean {
         if (userId == null || password == null) {
             return false
         }

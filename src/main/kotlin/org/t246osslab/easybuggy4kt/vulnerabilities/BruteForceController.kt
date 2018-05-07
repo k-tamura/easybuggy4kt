@@ -39,10 +39,10 @@ class BruteForceController : DefaultLoginController() {
                 session.removeAttribute("target")
                 res.sendRedirect(target)
             }
+            return null
         } else {
-            session.setAttribute("authNMsg", "msg.authentication.fail")
-            return doGet(mav, req, res, locale)
+            session.setAttribute("authNMsg", msg?.getMessage("msg.authentication.fail", null, locale))
         }
-        return null
+        return doGet(mav, req, res, locale)
     }
 }
