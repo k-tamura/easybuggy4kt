@@ -27,12 +27,6 @@ import javax.servlet.http.Part
 @Controller
 class MailHeaderInjectionController : AbstractController() {
 
-    @Value("\${spring.mail.username}")
-    internal var username: String? = null
-
-    @Value("\${spring.mail.password}")
-    internal var password: String? = null
-
     // administrator's mail address
     @Value("\${mail.admin.address}")
     private var adminAddress: String? = null
@@ -40,17 +34,9 @@ class MailHeaderInjectionController : AbstractController() {
     @Autowired
     private val javaMailSender: JavaMailSender? = null
 
-    private val isReadyToSendEmail: Boolean
-        get() = !(StringUtils.isBlank(username) || StringUtils.isBlank(password) || StringUtils.isBlank(adminAddress))
-
     @RequestMapping(value = "/mailheaderijct", method = arrayOf(RequestMethod.GET))
     fun doGet(mav: ModelAndView, locale: Locale): ModelAndView {
         setViewAndCommonObjects(mav, locale, "mailheaderinjection")
-        if (isReadyToSendEmail) {
-            mav.addObject("isReady", "yes")
-        } else {
-            mav.addObject("note", msg?.getMessage("msg.smtp.server.not.setup", null, locale))
-        }
         return mav
     }
 
